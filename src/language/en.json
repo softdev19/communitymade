@@ -1,0 +1,19 @@
+{
+  "login": {
+    "paskho": "Paskho",
+    "community made": "Community Made",
+    "email": "Email",
+    "password": "Password",
+    "login": "LOGIN",
+    "dont have account": "Don't have an account?",
+    "create account": "Create Account",
+    "forgot password": "Forgot password?",
+    "reset password": "Reset Password"
+  },
+  "common": {
+
+  },
+  "errors": {
+
+  }
+}
