@@ -10,17 +10,25 @@ import {
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import platform from '../helpers/platform'
-import { Button } from 'react-native-material-ui';
+import _ from 'lodash'
+import { Button } from 'react-native-material-ui'
 
 import CustomInput from '../components/organisms/CustomInput'
 import Spacer from '../components/atoms/Spacer'
 
 import { setUiBlock } from '../actions/appFlowActions'
+import { checkEmail } from '../helpers/user'
 
 function LoginScreen({ navigation, setUiBlock }) {
   const { t } = useTranslation(['login', 'common'])
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isValidEmail, setIsValidEmail] = useState(null)
+  const handleEmail = text => {
+    const isValid = checkEmail(text)
+    setEmail(text)
+    setIsValidEmail(isValid)
+  }
   const onPressLogin = async () => {
     try {
       setUiBlock(true)
@@ -31,6 +39,13 @@ function LoginScreen({ navigation, setUiBlock }) {
       ShowError(e)
     }
   }
+  const onPressCreate = () => {
+
+  }
+  const onPressReset = () => {
+
+  }
+  const enabled = isValidEmail && _.size(password) > 5
   return (
     <KeyboardAvoidingView
       behavior={platform.platform === 'ios' ? 'position' : 'height'}
@@ -47,11 +62,13 @@ function LoginScreen({ navigation, setUiBlock }) {
             <CustomInput
               _value={email}
               title={t('email')}
-              _onChangeText={text => setEmail(text)}
+              isError={isValidEmail === false}
+              _onChangeText={handleEmail}
             />
             <Spacer size="L" />
             <CustomInput
               _value={password}
+              secureTextEntry
               title={t('password')}
               _onChangeText={text => setPassword(text)}
             />
@@ -60,17 +77,21 @@ function LoginScreen({ navigation, setUiBlock }) {
               raised
               style={{ container: styles.btn }}
               text={t('login')}
+              disabled={!enabled}
               onPress={onPressLogin}
             />
             <Spacer size="L" />
             <View style={styles.row}>
               <Text style={styles.subtitle}>{t('dont have account')}</Text>
-              <Text style={styles.link}>{t('create account')}</Text>
+              <Text style={styles.link} onPress={onPressCreate}>
+                {t('create account')}
+              </Text>
             </View>
-            <Spacer size="S" />
             <View style={styles.row}>
               <Text style={styles.subtitle}>{t('forgot password')}</Text>
-              <Text style={styles.link}>{t('reset password')}</Text>
+              <Text style={styles.link} onPress={onPressReset}>
+                {t('reset password')}
+              </Text>
             </View>
           </View>
         </View>
@@ -112,9 +133,11 @@ const styles = StyleSheet.create({
     fontFamily: platform.fontMedium
   },
   link: {
+    padding: 5,
     color: platform.brandBlue,
     fontSize: 14,
-    fontFamily: platform.fontMedium
+    fontFamily: platform.fontMedium,
+    textDecorationLine: 'underline'
   }
 })
 

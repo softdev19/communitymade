@@ -10,6 +10,7 @@ function CustomInput({
   _onChangeText,
   disabled,
   title,
+  isError,
   ...rest
 }) {
   const [text, setText] = useState(_value)
@@ -24,7 +25,8 @@ function CustomInput({
           styles.block,
           styleBlock,
           disabled && styles.disabled,
-          _.size(text) && styles.selected
+          _.size(text) && styles.selected,
+          isError && styles.error
         ]}
       >
         <TextInput
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     width: '30%',
     color: platform.brandBlack,
     fontSize: 16,
-    fontFamily: platform.fontBold,
+    fontFamily: platform.fontMedium
   },
   block: {
     width: '70%',
@@ -73,14 +75,16 @@ const styles = StyleSheet.create({
     padding: 0,
     color: platform.brandBlack,
     fontFamily: platform.fontRegular,
-    fontSize: 16,
-    paddingHorizontal: 25
+    paddingHorizontal: 16
   },
   disabled: {
     backgroundColor: opacify(platform.brandGrey, 0.3)
   },
   selected: {
     borderColor: platform.brandBlack
+  },
+  error: {
+    borderColor: platform.brandRed
   }
 })
 
