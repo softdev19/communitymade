@@ -15,21 +15,26 @@ import { Button } from 'react-native-material-ui'
 
 import CustomInput from '../components/organisms/CustomInput'
 import Spacer from '../components/atoms/Spacer'
+import CustomPicker from '../components/organisms/CustomPicker'
 
 import { setUiBlock } from '../actions/appFlowActions'
 import { checkEmail } from '../helpers/user'
 
-function LoginScreen({ navigation, setUiBlock }) {
-  const { t } = useTranslation(['login', 'common'])
+function RegisterScreen({ navigation, setUiBlock }) {
+  const { t } = useTranslation(['register', 'common'])
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [isValidEmail, setIsValidEmail] = useState(null)
+  const [pod, setPod] = useState('')
   const handleEmail = text => {
     const isValid = checkEmail(text)
     setEmail(text)
     setIsValidEmail(isValid)
   }
-  const onPressLogin = async () => {
+  const onPressRegister = async () => {
     try {
       setUiBlock(true)
 
@@ -39,60 +44,85 @@ function LoginScreen({ navigation, setUiBlock }) {
       ShowError(e)
     }
   }
-  const onPressCreate = () => {
-    navigation.navigate('Register')
+  const onPressLogin = () => {
+    navigation.goBack()
   }
-  const onPressReset = () => {
-
-  }
-  const enabled = isValidEmail && _.size(password) > 5
+  const isValidPassword = password === confirmPassword
+  const enabled =
+    _.size(firstName) && _.size(lastName) && isValidEmail && _.size(password) > 5 && isValidPassword
   return (
     <KeyboardAvoidingView
       behavior={platform.platform === 'ios' ? 'position' : 'height'}
       style={styles.container}
       contentContainerStyle={styles.container}
-      keyboardVerticalOffset={platform.isIphoneX && -100}
+      keyboardVerticalOffset={platform.platform === 'ios' && -100}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
           <Text style={styles.title}>{t('common:paskho')}</Text>
           <Text style={styles.title}>{t('common:community made')}</Text>
-          <Spacer size="XL" />
+          <Text style={styles.pageTitle}>{t('create account')}</Text>
+          <Spacer size="M" />
           <View style={styles.inputs}>
+            <CustomInput
+              _value={firstName}
+              title={t('firstName')}
+              _onChangeText={text => setFirstName(text)}
+            />
+            <Spacer size="M" />
+            <CustomInput
+              _value={lastName}
+              title={t('lastName')}
+              _onChangeText={text => setLastName(text)}
+            />
+            <Spacer size="M" />
             <CustomInput
               _value={email}
               title={t('email')}
               isError={isValidEmail === false}
               _onChangeText={handleEmail}
             />
-            <Spacer size="L" />
+            <Spacer size="M" />
             <CustomInput
               _value={password}
+              isError={isValidPassword === false}
               secureTextEntry
               title={t('password')}
               _onChangeText={text => setPassword(text)}
             />
-            <Spacer size="L" />
+            <Spacer size="M" />
+            <CustomInput
+              _value={confirmPassword}
+              isError={isValidPassword === false}
+              secureTextEntry
+              title={t('confirm password')}
+              _onChangeText={text => setConfirmPassword(text)}
+            />
+            <Spacer size="M" />
+            <CustomPicker
+              title={t('pod')}
+              value={pod}
+              data={[
+                { label: 'Brooklyn', value: 'brooklyn' },
+                { label: 'Chikago', value: 'chikago' },
+              ]}
+              onValueChange={value => setPod(value)}
+            />
+            <Spacer size="M" />
             <Button
               raised
               style={{ container: styles.btn }}
-              text={t('login')}
+              text={t('register')}
               disabled={!enabled}
-              onPress={onPressLogin}
+              onPress={onPressRegister}
             />
             <Spacer size="L" />
-            <View style={styles.row}>
-              <Text style={styles.subtitle}>{t('dont have account')}</Text>
-              <Text style={styles.link} onPress={onPressCreate}>
-                {t('create account')}
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.subtitle}>{t('forgot password')}</Text>
-              <Text style={styles.link} onPress={onPressReset}>
-                {t('reset password')}
-              </Text>
-            </View>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.subtitle}>{t('already have account')}</Text>
+            <Text style={styles.link} onPress={onPressLogin}>
+              {t('login')}
+            </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -115,6 +145,12 @@ const styles = StyleSheet.create({
     fontFamily: platform.fontMedium,
     lineHeight: 42
   },
+  pageTitle: {
+    color: platform.brandBlack,
+    fontSize: 20,
+    fontFamily: platform.fontRegular,
+    marginTop: 24
+  },
   inputs: {
     paddingHorizontal: 35
   },
@@ -123,9 +159,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   row: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'flex-end',
+    paddingRight: 35
   },
   subtitle: {
     color: platform.brandBlack,
@@ -137,7 +175,8 @@ const styles = StyleSheet.create({
     color: platform.brandBlue,
     fontSize: 14,
     fontFamily: platform.fontMedium,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    paddingLeft: 16
   }
 })
 
@@ -149,4 +188,4 @@ const mapDispatchToProps = {
   setUiBlock
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

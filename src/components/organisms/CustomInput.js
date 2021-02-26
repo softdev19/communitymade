@@ -3,6 +3,8 @@ import { StyleSheet, View, TextInput, Text } from 'react-native'
 import platform, { opacify } from '../../helpers/platform'
 import _ from 'lodash'
 
+const inputWidth = (platform.deviceWidth - 70) * 0.6 + 4
+
 function CustomInput({
   styleBlock,
   textInput,
@@ -56,13 +58,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    width: '30%',
+    width: inputWidth / 1.5,
     color: platform.brandBlack,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: platform.fontMedium
   },
   block: {
-    width: '70%',
+    width: inputWidth,
     height: 45,
     borderWidth: 1,
     borderColor: opacify(platform.brandBlack, 0.3),
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     color: platform.brandBlack,
+    fontSize: 12,
     fontFamily: platform.fontRegular,
     paddingHorizontal: 16
   },

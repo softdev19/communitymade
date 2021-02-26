@@ -1,7 +1,5 @@
 {
   "login": {
-    "paskho": "Paskho",
-    "community made": "Community Made",
     "email": "Email",
     "password": "Password",
     "login": "LOGIN",
@@ -10,8 +8,21 @@
     "forgot password": "Forgot password?",
     "reset password": "Reset Password"
   },
+  "register": {
+    "create account": "Create Account",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm password": "Confirm Password",
+    "pod": "Pod",
+    "already have account": "Already have an account?",
+    "register": "REGISTER",
+    "login": "Login"
+  },
   "common": {
-
+    "paskho": "Paskho",
+    "community made": "Community Made",
   },
   "errors": {
 
