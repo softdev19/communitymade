@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   block: {
     width: inputWidth,
-    height: 45,
+    height: 36,
     borderWidth: 1,
     borderColor: opacify(platform.brandBlack, 0.3),
     marginHorizontal: 1,

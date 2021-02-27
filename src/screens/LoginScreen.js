@@ -34,7 +34,7 @@ function LoginScreen({ navigation, setUiBlock }) {
   const onPressLogin = async () => {
     try {
       setUiBlock(true)
-
+      navigation.navigate('OnboardingAddress')
       setUiBlock(false)
     } catch (e) {
       setUiBlock(false)

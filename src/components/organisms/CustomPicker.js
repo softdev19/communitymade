@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   block: {
     width: inputWidth,
-    height: 45,
+    height: 36,
     borderWidth: 1,
     borderColor: opacify(platform.brandBlack, 0.3),
     marginHorizontal: 1,
@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16
   },
   inputIOS: {
-    height: 45,
+    height: 36,
     width: inputWidth - 20
   },
   inputAndroid: {
-    height: 45,
+    height: 36,
     width: inputWidth - 20
   },
   iconContainer: {
-    top: 6
+    top: 2
   }
 })
 

@@ -17,41 +17,29 @@ import Spacer from '../components/atoms/Spacer'
 import CustomPicker from '../components/organisms/CustomPicker'
 import CompanyTitle from '../components/molecules/CompanyTitle'
 import ScreenTitle from '../components/molecules/ScreenTitle'
-import AuthTextWithLink from '../components/molecules/AuthTextWithLink'
 
 import { setUiBlock } from '../actions/appFlowActions'
-import { checkEmail } from '../helpers/user'
 
-function RegisterScreen({ navigation, setUiBlock }) {
-  const { t } = useTranslation(['register', 'common'])
+function OnboardingAddressScreen({ navigation, setUiBlock }) {
+  const { t } = useTranslation(['onboarding-address', 'common'])
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isValidEmail, setIsValidEmail] = useState(null)
-  const [pod, setPod] = useState('')
-  const handleEmail = text => {
-    const isValid = checkEmail(text)
-    setEmail(text)
-    setIsValidEmail(isValid)
-  }
-  const onPressRegister = async () => {
+  const [addressFirst, setAddressFirst] = useState('')
+  const [addressSecond, setAddressSecond] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState(null)
+  const [zip, setZip] = useState('')
+  const [phone, setPhone] = useState('')
+  const onPressContinue = async () => {
     try {
       setUiBlock(true)
-      navigation.navigate('OnboardingAddress')
+
       setUiBlock(false)
     } catch (e) {
       setUiBlock(false)
       ShowError(e)
     }
   }
-  const onPressLogin = () => {
-    navigation.goBack()
-  }
-  const isValidPassword = password === confirmPassword
-  const enabled =
-    _.size(firstName) && _.size(lastName) && isValidEmail && _.size(password) > 5 && isValidPassword
   return (
     <KeyboardAvoidingView
       behavior={platform.platform === 'ios' ? 'position' : 'height'}
@@ -63,7 +51,7 @@ function RegisterScreen({ navigation, setUiBlock }) {
         <View style={styles.inner}>
           <CompanyTitle />
           <Spacer size="M" />
-          <ScreenTitle title={t('create account')} />
+          <ScreenTitle title={t('contact info')} />
           <Spacer size="M" />
           <View style={styles.inputs}>
             <CustomInput
@@ -79,52 +67,52 @@ function RegisterScreen({ navigation, setUiBlock }) {
             />
             <Spacer size="M" />
             <CustomInput
-              _value={email}
-              title={t('email')}
-              isError={isValidEmail === false}
-              _onChangeText={handleEmail}
+              _value={addressFirst}
+              title={t('address first')}
+              _onChangeText={text => setAddressFirst(text)}
             />
             <Spacer size="M" />
             <CustomInput
-              _value={password}
-              isError={isValidPassword === false}
-              secureTextEntry
-              title={t('password')}
-              _onChangeText={text => setPassword(text)}
+              _value={addressSecond}
+              title={t('address second')}
+              _onChangeText={text => setAddressSecond(text)}
             />
             <Spacer size="M" />
             <CustomInput
-              _value={confirmPassword}
-              isError={isValidPassword === false}
-              secureTextEntry
-              title={t('confirm password')}
-              _onChangeText={text => setConfirmPassword(text)}
+              _value={city}
+              title={t('city')}
+              _onChangeText={text => setCity(text)}
             />
             <Spacer size="M" />
             <CustomPicker
-              title={t('pod')}
-              value={pod}
+              title={t('state')}
+              value={state}
               data={[
                 { label: 'Brooklyn', value: 'brooklyn' },
                 { label: 'Chikago', value: 'chikago' },
               ]}
-              onValueChange={value => setPod(value)}
+              onValueChange={value => setState(value)}
+            />
+            <Spacer size="M" />
+            <CustomInput
+              _value={zip}
+              title={t('zip')}
+              _onChangeText={text => setZip(text)}
+            />
+            <Spacer size="M" />
+            <CustomInput
+              _value={phone}
+              title={t('phone')}
+              _onChangeText={text => setPhone(text)}
             />
             <Spacer size="M" />
             <Button
               raised
               style={{ container: styles.btn }}
-              text={t('register')}
-              disabled={!enabled}
-              onPress={onPressRegister}
+              text={t('continue')}
+              onPress={onPressContinue}
             />
-            <Spacer size="L" />
           </View>
-          <AuthTextWithLink
-            leftText={t('already have account')}
-            rightText={t('login')}
-            onPress={onPressLogin}
-          />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -144,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35
   },
   btn: {
-    width: 100,
+    width: 120,
     alignSelf: 'flex-end'
   }
 })
@@ -157,4 +145,4 @@ const mapDispatchToProps = {
   setUiBlock
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingAddressScreen)

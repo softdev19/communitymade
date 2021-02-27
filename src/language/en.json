@@ -20,6 +20,18 @@
     "register": "REGISTER",
     "login": "Login"
   },
+  "onboarding-address": {
+    "contact info": "Contact Info",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "address first": "Address 1",
+    "address second": "Address 2",
+    "city": "City",
+    "state": "State",
+    "zip": "Zip",
+    "phone": "Phone",
+    "continue": "Continue"
+  },
   "common": {
     "paskho": "Paskho",
     "community made": "Community Made",
