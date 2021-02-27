@@ -1,4 +1,4 @@
-1) Install React Native as described at https://facebook.github.io/react-native/docs/getting-started.html#content
+1) Install React Native as described at https://reactnative.dev/docs/environment-setup
 2) Clone this repository
 3) Run "npm install" or "yarn install", all required components will be installed automatically
 
