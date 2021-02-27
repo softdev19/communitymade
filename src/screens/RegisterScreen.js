@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   StyleSheet,
-  Text,
   View,
   KeyboardAvoidingView,
   Keyboard,
@@ -16,6 +15,9 @@ import { Button } from 'react-native-material-ui'
 import CustomInput from '../components/organisms/CustomInput'
 import Spacer from '../components/atoms/Spacer'
 import CustomPicker from '../components/organisms/CustomPicker'
+import CompanyTitle from '../components/molecules/CompanyTitle'
+import ScreenTitle from '../components/molecules/ScreenTitle'
+import AuthTextWithLink from '../components/molecules/AuthTextWithLink'
 
 import { setUiBlock } from '../actions/appFlowActions'
 import { checkEmail } from '../helpers/user'
@@ -59,9 +61,9 @@ function RegisterScreen({ navigation, setUiBlock }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <Text style={styles.title}>{t('common:paskho')}</Text>
-          <Text style={styles.title}>{t('common:community made')}</Text>
-          <Text style={styles.pageTitle}>{t('create account')}</Text>
+          <CompanyTitle />
+          <Spacer size="M" />
+          <ScreenTitle title={t('create account')} />
           <Spacer size="M" />
           <View style={styles.inputs}>
             <CustomInput
@@ -118,12 +120,11 @@ function RegisterScreen({ navigation, setUiBlock }) {
             />
             <Spacer size="L" />
           </View>
-          <View style={styles.row}>
-            <Text style={styles.subtitle}>{t('already have account')}</Text>
-            <Text style={styles.link} onPress={onPressLogin}>
-              {t('login')}
-            </Text>
-          </View>
+          <AuthTextWithLink
+            leftText={t('already have account')}
+            rightText={t('login')}
+            onPress={onPressLogin}
+          />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -139,44 +140,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  title: {
-    color: platform.brandBlack,
-    fontSize: 28,
-    fontFamily: platform.fontMedium,
-    lineHeight: 42
-  },
-  pageTitle: {
-    color: platform.brandBlack,
-    fontSize: 20,
-    fontFamily: platform.fontRegular,
-    marginTop: 24
-  },
   inputs: {
     paddingHorizontal: 35
   },
   btn: {
     width: 100,
     alignSelf: 'flex-end'
-  },
-  row: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingRight: 35
-  },
-  subtitle: {
-    color: platform.brandBlack,
-    fontSize: 14,
-    fontFamily: platform.fontMedium
-  },
-  link: {
-    padding: 5,
-    color: platform.brandBlue,
-    fontSize: 14,
-    fontFamily: platform.fontMedium,
-    textDecorationLine: 'underline',
-    paddingLeft: 16
   }
 })
 

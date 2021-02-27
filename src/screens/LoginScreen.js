@@ -15,6 +15,8 @@ import { Button } from 'react-native-material-ui'
 
 import CustomInput from '../components/organisms/CustomInput'
 import Spacer from '../components/atoms/Spacer'
+import CompanyTitle from '../components/molecules/CompanyTitle'
+import AuthTextWithLink from '../components/molecules/AuthTextWithLink'
 
 import { setUiBlock } from '../actions/appFlowActions'
 import { checkEmail } from '../helpers/user'
@@ -55,8 +57,7 @@ function LoginScreen({ navigation, setUiBlock }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <Text style={styles.title}>{t('common:paskho')}</Text>
-          <Text style={styles.title}>{t('common:community made')}</Text>
+          <CompanyTitle />
           <Spacer size="XL" />
           <View style={styles.inputs}>
             <CustomInput
@@ -80,20 +81,18 @@ function LoginScreen({ navigation, setUiBlock }) {
               disabled={!enabled}
               onPress={onPressLogin}
             />
-            <Spacer size="L" />
-            <View style={styles.row}>
-              <Text style={styles.subtitle}>{t('dont have account')}</Text>
-              <Text style={styles.link} onPress={onPressCreate}>
-                {t('create account')}
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.subtitle}>{t('forgot password')}</Text>
-              <Text style={styles.link} onPress={onPressReset}>
-                {t('reset password')}
-              </Text>
-            </View>
           </View>
+          <Spacer size="L" />
+          <AuthTextWithLink
+            leftText={t('dont have account')}
+            rightText={t('create account')}
+            onPress={onPressCreate}
+          />
+          <AuthTextWithLink
+            leftText={t('forgot password')}
+            rightText={t('reset password')}
+            onPress={onPressReset}
+          />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -109,35 +108,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  title: {
-    color: platform.brandBlack,
-    fontSize: 28,
-    fontFamily: platform.fontMedium,
-    lineHeight: 42
-  },
   inputs: {
     paddingHorizontal: 35
   },
   btn: {
     width: 100,
     alignSelf: 'flex-end'
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  subtitle: {
-    color: platform.brandBlack,
-    fontSize: 14,
-    fontFamily: platform.fontMedium
-  },
-  link: {
-    padding: 5,
-    color: platform.brandBlue,
-    fontSize: 14,
-    fontFamily: platform.fontMedium,
-    textDecorationLine: 'underline'
   }
 })
 
