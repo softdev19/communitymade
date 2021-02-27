@@ -29,12 +29,15 @@
     "city": "City",
     "state": "State",
     "zip": "Zip",
-    "phone": "Phone",
-    "continue": "Continue"
+    "phone": "Phone"
+  },
+  "onboarding-skills": {
+    "choose skills": "Choose Skills"
   },
   "common": {
     "paskho": "Paskho",
     "community made": "Community Made",
+    "continue": "Continue"
   },
   "errors": {
 

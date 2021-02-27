@@ -53,7 +53,6 @@ function LoginScreen({ navigation, setUiBlock }) {
       behavior={platform.platform === 'ios' ? 'position' : 'height'}
       style={styles.container}
       contentContainerStyle={styles.container}
-      keyboardVerticalOffset={platform.isIphoneX && -100}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>

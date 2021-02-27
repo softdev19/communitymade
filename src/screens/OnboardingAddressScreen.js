@@ -33,7 +33,7 @@ function OnboardingAddressScreen({ navigation, setUiBlock }) {
   const onPressContinue = async () => {
     try {
       setUiBlock(true)
-
+      navigation.navigate('OnboardingSkills')
       setUiBlock(false)
     } catch (e) {
       setUiBlock(false)
@@ -45,7 +45,6 @@ function OnboardingAddressScreen({ navigation, setUiBlock }) {
       behavior={platform.platform === 'ios' ? 'position' : 'height'}
       style={styles.container}
       contentContainerStyle={styles.container}
-      keyboardVerticalOffset={platform.platform === 'ios' && -100}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
@@ -109,7 +108,7 @@ function OnboardingAddressScreen({ navigation, setUiBlock }) {
             <Button
               raised
               style={{ container: styles.btn }}
-              text={t('continue')}
+              text={t('common:continue')}
               onPress={onPressContinue}
             />
           </View>
