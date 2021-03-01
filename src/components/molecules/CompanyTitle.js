@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     color: platform.brandBlack,
     fontSize: 28,
     fontFamily: platform.fontMedium,
-    lineHeight: 42
+    lineHeight: 42,
+    textAlign: 'center'
   }
 })
 

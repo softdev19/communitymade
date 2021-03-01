@@ -44,7 +44,7 @@ export default {
   headerBackgroundColor: '#F6F9FC',
   statusBarColor: '#E8EFF9',
   tabBarBackgroundColor: '#F6F9FC',
-  activeTintColor: '#007AFF',
+  activeTintColor: '#000000',
   inactiveTintColor: '#000000',
 
   // Font

@@ -7,7 +7,7 @@ import { NavigationTheme } from './themes'
 function AppContainer() {
   const routeNameRef = useRef();
   const navigationRef = useRef();
-  const [initialRouteName, setInitialRouteName] = useState(null)
+  const [initialRouteName, setInitialRouteName] = useState('Home')
   return (
     <NavigationContainer
       ref={navigationRef}

@@ -10,12 +10,11 @@ export default function TabLabel({ name, focused }) {
 
 const styles = StyleSheet.create({
   label: {
-    marginBottom: 6,
     color: platform.inactiveTintColor,
-    fontSize: 12,
-    fontFamily: platform.fontSemiBold
+    fontSize: 13,
+    fontFamily: platform.fontRegular
   },
   focused: {
-    color: platform.activeTintColor
+    fontFamily: platform.fontBold
   }
 })

@@ -20,9 +20,12 @@ export const StackStyle = {
 
 export const TabsStyle = {
   keyboardHidesTabBar: true,
+  labelPosition: 'beside-icon',
+  tabStyle: {
+    borderWidth: 1,
+    borderColor: platform.brandBlack
+  },
   style: {
-    paddingTop: 5,
-    height: 70 + platform.bottomSpace,
     backgroundColor: platform.tabBarBackgroundColor,
     borderTopWidth: 0
   }

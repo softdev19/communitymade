@@ -34,10 +34,35 @@
   "onboarding-skills": {
     "choose skills": "Choose Skills"
   },
+  "orders": {
+    "your active orders": "Your Active Work Orders",
+    "available orders": "Available Work Orders",
+    "task name": "Task Name:",
+    "end date": "End Date:",
+    "claimed": "Qty Claimed:",
+    "completed": "Qty Completed:",
+    "remaining": "Remaining Qty:",
+    "est time": "Est Time Per:",
+    "payment": "Payment:",
+    "view details": "View Details"
+  },
+  "payments": {
+
+  },
+  "settings": {
+
+  },
+  "tabs": {
+    "orders": "Work Orders",
+    "payments": "Payments",
+    "settings": "Settings"
+  },
   "common": {
     "paskho": "Paskho",
     "community made": "Community Made",
-    "continue": "Continue"
+    "continue": "Continue",
+    "min": "min",
+    "per": "per"
   },
   "errors": {
 

@@ -6,6 +6,7 @@ import RegisterScreen from '../screens/RegisterScreen'
 import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import { StackStyle } from './themes'
+import TabsStack from './TabsStack'
 
 const Stack = createStackNavigator();
 
@@ -31,8 +32,8 @@ function MainStack({ initialRouteName }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="OnboardingSkills"
-        component={OnboardingSkillsScreen}
+        name="Home"
+        component={TabsStack}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
