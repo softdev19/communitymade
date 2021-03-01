@@ -32,6 +32,11 @@ function MainStack({ initialRouteName }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="OnboardingSkills"
+        component={OnboardingSkillsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Home"
         component={TabsStack}
         options={{ headerShown: false }}

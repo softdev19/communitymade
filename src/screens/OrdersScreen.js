@@ -40,7 +40,9 @@ function OrdersScreen({ navigation }) {
               completed={item.completed}
               remaining={item.remaining}
               est_time={item.est_time}
-              onPress={() => {}}
+              onPress={() =>
+                navigation.navigate('OrderDetails', { order: item })
+              }
             />
           )
         }}

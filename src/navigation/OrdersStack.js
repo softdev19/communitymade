@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import OrdersScreen from '../screens/OrdersScreen'
+import OrderDetailsScreen from '../screens/OrderDetailsScreen'
 import { StackStyle } from './themes'
 
 const Stack = createStackNavigator();
@@ -12,6 +13,11 @@ function OrdersStack() {
       <Stack.Screen
         name="Orders"
         component={OrdersScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetailsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -19,7 +19,10 @@ function OnboardingSkillsScreen({ navigation, setUiBlock }) {
   const onPressContinue = async () => {
     try {
       setUiBlock(true)
-      // navigation.navigate('')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }]
+      })
       setUiBlock(false)
     } catch (e) {
       setUiBlock(false)

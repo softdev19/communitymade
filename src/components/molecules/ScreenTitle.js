@@ -11,8 +11,9 @@ function ScreenTitle({ title }) {
 const styles = StyleSheet.create({
   title: {
     color: platform.brandBlack,
-    fontSize: 20,
-    fontFamily: platform.fontRegular
+    fontSize: 18,
+    fontFamily: platform.fontRegular,
+    textAlign: 'center'
   }
 })
 

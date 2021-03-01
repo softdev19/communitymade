@@ -46,6 +46,15 @@
     "payment": "Payment:",
     "view details": "View Details"
   },
+  "order-details": {
+    "active work": "Active Work Order Details",
+    "amount earned": "Amount Earned:",
+    "view pdf": "View Instructions PDF",
+    "view video": "View Instructions Video",
+    "mark completed": "Mark Task Completed",
+    "questions": "Questions? Problems?",
+    "message paskho": "Message Paskho"
+  },
   "payments": {
 
   },
