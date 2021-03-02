@@ -11,7 +11,7 @@ import CompanyTitle from '../components/molecules/CompanyTitle'
 import ScreenTitle from '../components/molecules/ScreenTitle'
 
 import { setUiBlock } from '../actions/appFlowActions'
-import { checkEmail } from '../helpers/user'
+import { dataSkills } from '../constants/types'
 
 function OnboardingSkillsScreen({ navigation, setUiBlock }) {
   const { t } = useTranslation(['onboarding-skills', 'common'])
@@ -29,14 +29,13 @@ function OnboardingSkillsScreen({ navigation, setUiBlock }) {
       ShowError(e)
     }
   }
-  const data = ['Sewing', 'Assembling', 'Tailoring', 'Warehousing', 'Shipping']
   return (
     <View style={styles.container}>
       <CompanyTitle />
       <Spacer size="M" />
       <ScreenTitle title={t('choose skills')} />
       <Spacer size="M" />
-      {_.map(data, (item, key) => {
+      {_.map(dataSkills, (item, key) => {
         const checkedIndex = _.indexOf(skills, item)
         return (
           <View style={styles.checkbox} key={key}>
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   checkbox: {
-    width: 160,
+    width: '100%',
     height: 40
   }
 })

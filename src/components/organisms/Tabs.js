@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     width: platform.deviceWidth - 32,
     flex: 1,
     alignSelf: 'center',
-    borderWidth: 1
+    borderWidth: 1,
+    paddingBottom: 20
   }
 })
 
