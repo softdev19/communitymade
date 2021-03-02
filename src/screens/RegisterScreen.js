@@ -81,6 +81,7 @@ function RegisterScreen({ navigation, setUiBlock }) {
             <CustomInput
               _value={email}
               title={t('email')}
+              keyboardType="email-address"
               isError={isValidEmail === false}
               _onChangeText={handleEmail}
             />
@@ -106,7 +107,7 @@ function RegisterScreen({ navigation, setUiBlock }) {
               value={pod}
               data={[
                 { label: 'Brooklyn', value: 'brooklyn' },
-                { label: 'Chikago', value: 'chikago' },
+                { label: 'Alabama', value: 'alabama' },
               ]}
               onValueChange={value => setPod(value)}
             />

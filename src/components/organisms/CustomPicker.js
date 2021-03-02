@@ -20,6 +20,7 @@ function CustomPicker({ styleBlock, title, data, value, onValueChange }) {
             inputAndroid: styles.inputAndroid,
             iconContainer: styles.iconContainer
           }}
+          useNativeAndroidPickerStyle={false}
           Icon={() => (
             <Icon name="arrow-drop-down" size={32} />
           )}
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     width: inputWidth - 20
   },
   inputAndroid: {
+    color: platform.brandBlack,
     height: 36,
     width: inputWidth - 20
   },
