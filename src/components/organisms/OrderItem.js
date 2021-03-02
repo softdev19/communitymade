@@ -12,7 +12,8 @@ function OrderItem({
   completed,
   remaining,
   est_time,
-  onPress
+  onPress,
+  isDetails
 }) {
   const { t } = useTranslation(['orders', 'common'])
   const _payment = `$${payment}/${t('common:per')}`
@@ -43,7 +44,19 @@ function OrderItem({
             </Text>
             <Text style={styles.subtitle}>{claimed || remaining}</Text>
           </View>
-          <View style={styles.row}>
+          {!isDetails && (
+            <View style={styles.row}>
+              <Text style={styles.title}>
+                {t(completed ? 'completed' : 'payment')}
+              </Text>
+              <Text style={styles.subtitle}>
+                {completed || _payment}
+              </Text>
+            </View>
+          )}
+        </View>
+        {isDetails ? (
+          <View style={[styles.row, styles.leftCol]}>
             <Text style={styles.title}>
               {t(completed ? 'completed' : 'payment')}
             </Text>
@@ -51,14 +64,15 @@ function OrderItem({
               {completed || _payment}
             </Text>
           </View>
-        </View>
-        <Button
-          raised
-          style={{ text: styles.btnTitle }}
-          upperCase={false}
-          text={t('view details')}
-          onPress={onPress}
-        />
+        ) : (
+          <Button
+            raised
+            style={{ text: styles.btnTitle }}
+            upperCase={false}
+            text={t('view details')}
+            onPress={onPress}
+          />
+        )}
       </View>
     </View>
   )
@@ -66,11 +80,12 @@ function OrderItem({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: platform.deviceWidth - 32,
     alignSelf: 'center',
     borderWidth: 1,
     padding: 16,
-    marginBottom: 20
+    marginBottom: 20,
   },
   row: {
     flex: 1,

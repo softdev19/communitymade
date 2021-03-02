@@ -13,6 +13,7 @@ function CustomInput({
   disabled,
   title,
   isError,
+  styleContainer,
   ...rest
 }) {
   const [text, setText] = useState(_value)
@@ -20,8 +21,8 @@ function CustomInput({
     setText(_value === 'null' || !_value ? '' : _value)
   }, [_value])
   return(
-    <View style={styles.row}>
-      <Text style={styles.title}>{title}</Text>
+    <View style={[styles.row, styleContainer]}>
+      {!!title && <Text style={styles.title}>{title}</Text>}
       <View
         style={[
           styles.block,
