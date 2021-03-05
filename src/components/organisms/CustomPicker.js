@@ -18,13 +18,11 @@ function CustomPicker({ styleBlock, title, data, value, onValueChange }) {
           style={{
             inputIOS: styles.inputIOS,
             inputAndroid: styles.inputAndroid,
-            iconContainer: styles.iconContainer
+            viewContainer: styles.viewContainer
           }}
           useNativeAndroidPickerStyle={false}
-          Icon={() => (
-            <Icon name="arrow-drop-down" size={32} />
-          )}
         />
+        <Icon style={styles.icon} name="arrow-drop-down" size={32} />
       </View>
     </View>
   )
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     width: inputWidth,
     height: 36,
     borderWidth: 1,
-    borderColor: opacify(platform.brandBlack, 0.3),
+    borderColor: platform.brandBlack,
     marginHorizontal: 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -54,16 +52,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16
   },
   inputIOS: {
-    height: 36,
+    height: 34,
     width: inputWidth - 20
   },
   inputAndroid: {
     color: platform.brandBlack,
-    height: 36,
+    height: 34,
     width: inputWidth - 20
   },
-  iconContainer: {
-    top: 2
+  viewContainer: {
+    zIndex: 2
+  },
+  icon: {
+    position: 'absolute',
+    zIndex: 1,
+    right: 0
   }
 })
 
