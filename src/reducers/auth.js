@@ -2,19 +2,16 @@ import * as actionTypes from '../constants/actionTypes'
 
 const _initialState = {
   user: {
-    // username: null,
-    // email: null,
-    // password: null,
-    birthday: '01/01/1960',
-    height: null,
-    weight: null,
-    pills_on_strip: null,
-    stop_days: '1',
-    start_date: null,
-    pill_type: null,
-    pill_dosage: null,
-    reminder_time: null,
-    is_stopweek: false
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: '',
+    addressFirst: null,
+    addressSecond: null,
+    city: null,
+    state: null,
+    zip: null,
+    phone: null
   }
 }
 

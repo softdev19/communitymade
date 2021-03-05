@@ -19,17 +19,28 @@ import CompanyTitle from '../components/molecules/CompanyTitle'
 import ScreenTitle from '../components/molecules/ScreenTitle'
 
 import { setUiBlock } from '../actions/appFlowActions'
+import { updateUserInfo } from '../actions/auth'
 
-function OnboardingAddressScreen({ navigation, setUiBlock }) {
+function OnboardingAddressScreen({
+  navigation,
+  setUiBlock,
+  updateUserInfo,
+  user
+}) {
   const { t } = useTranslation(['onboarding-address', 'common'])
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [addressFirst, setAddressFirst] = useState('')
-  const [addressSecond, setAddressSecond] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState(null)
-  const [zip, setZip] = useState('')
-  const [phone, setPhone] = useState('')
+  const {
+    firstName,
+    lastName,
+    addressFirst,
+    addressSecond,
+    city,
+    state,
+    zip,
+    phone
+  } = user
+  const handleUpdate = (key, value) => {
+    updateUserInfo({...user, [key]: value})
+  }
   const onPressContinue = async () => {
     try {
       setUiBlock(true)
@@ -56,31 +67,31 @@ function OnboardingAddressScreen({ navigation, setUiBlock }) {
             <CustomInput
               _value={firstName}
               title={t('firstName')}
-              _onChangeText={text => setFirstName(text)}
+              _onChangeText={text => handleUpdate('firstName', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={lastName}
               title={t('lastName')}
-              _onChangeText={text => setLastName(text)}
+              _onChangeText={text => handleUpdate('lastName', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={addressFirst}
               title={t('address first')}
-              _onChangeText={text => setAddressFirst(text)}
+              _onChangeText={text => handleUpdate('addressFirst', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={addressSecond}
               title={t('address second')}
-              _onChangeText={text => setAddressSecond(text)}
+              _onChangeText={text => handleUpdate('addressSecond', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={city}
               title={t('city')}
-              _onChangeText={text => setCity(text)}
+              _onChangeText={text => handleUpdate('city', text)}
             />
             <Spacer size="M" />
             <CustomPicker
@@ -90,19 +101,19 @@ function OnboardingAddressScreen({ navigation, setUiBlock }) {
                 { label: 'Brooklyn', value: 'brooklyn' },
                 { label: 'Chikago', value: 'chikago' },
               ]}
-              onValueChange={value => setState(value)}
+              onValueChange={value => handleUpdate('state', value)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={zip}
               title={t('zip')}
-              _onChangeText={text => setZip(text)}
+              _onChangeText={text => handleUpdate('zip', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={phone}
               title={t('phone')}
-              _onChangeText={text => setPhone(text)}
+              _onChangeText={text => handleUpdate('phone', text)}
             />
             <Spacer size="M" />
             <Button
@@ -136,12 +147,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth }) => {
+  return {
+    user: auth?.user || {}
+  }
 }
 
 const mapDispatchToProps = {
-  setUiBlock
+  setUiBlock,
+  updateUserInfo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingAddressScreen)

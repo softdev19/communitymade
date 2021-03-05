@@ -21,19 +21,19 @@ import AuthTextWithLink from '../components/molecules/AuthTextWithLink'
 
 import { setUiBlock } from '../actions/appFlowActions'
 import { checkEmail } from '../helpers/user'
+import { updateUserInfo } from '../actions/auth'
 
-function RegisterScreen({ navigation, setUiBlock }) {
+function RegisterScreen({ navigation, setUiBlock, updateUserInfo, user }) {
   const { t } = useTranslation(['register', 'common'])
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const { firstName, lastName, email, password, pod } = user
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isValidEmail, setIsValidEmail] = useState(null)
-  const [pod, setPod] = useState('')
+  const handleUpdate = (key, value) => {
+    updateUserInfo({...user, [key]: value})
+  }
   const handleEmail = text => {
     const isValid = checkEmail(text)
-    setEmail(text)
+    handleUpdate('email', text)
     setIsValidEmail(isValid)
   }
   const onPressRegister = async () => {
@@ -69,13 +69,13 @@ function RegisterScreen({ navigation, setUiBlock }) {
             <CustomInput
               _value={firstName}
               title={t('firstName')}
-              _onChangeText={text => setFirstName(text)}
+              _onChangeText={text => handleUpdate('firstName', text)}
             />
             <Spacer size="M" />
             <CustomInput
               _value={lastName}
               title={t('lastName')}
-              _onChangeText={text => setLastName(text)}
+              _onChangeText={text => handleUpdate('lastName', text)}
             />
             <Spacer size="M" />
             <CustomInput
@@ -91,7 +91,7 @@ function RegisterScreen({ navigation, setUiBlock }) {
               isError={isValidPassword === false}
               secureTextEntry
               title={t('password')}
-              _onChangeText={text => setPassword(text)}
+              _onChangeText={text => handleUpdate('password', text)}
             />
             <Spacer size="M" />
             <CustomInput
@@ -109,7 +109,7 @@ function RegisterScreen({ navigation, setUiBlock }) {
                 { label: 'Brooklyn', value: 'brooklyn' },
                 { label: 'Alabama', value: 'alabama' },
               ]}
-              onValueChange={value => setPod(value)}
+              onValueChange={value => handleUpdate('pod', value)}
             />
             <Spacer size="M" />
             <Button
@@ -150,12 +150,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth }) => {
+  return {
+    user: auth?.user || {}
+  }
 }
 
 const mapDispatchToProps = {
-  setUiBlock
+  setUiBlock,
+  updateUserInfo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)
