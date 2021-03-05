@@ -62,6 +62,7 @@ function LoginScreen({ navigation, setUiBlock }) {
             <CustomInput
               _value={email}
               title={t('email')}
+              keyboardType="email-address"
               isError={isValidEmail === false}
               _onChangeText={handleEmail}
             />
