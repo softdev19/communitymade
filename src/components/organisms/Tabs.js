@@ -16,19 +16,19 @@ function Tabs({ children, activeTab, setActiveTab }) {
           ]}
           onPress={() => setActiveTab(0)}
         >
-          <Text>{t('skills')}</Text>
+          <Text style={styles.title}>{t('skills')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btn, activeTab === 1 && styles.btnActive]}
           onPress={() => setActiveTab(1)}
         >
-          <Text>{t('address')}</Text>
+          <Text style={styles.title}>{t('address')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btn, activeTab === 2 && styles.btnActive]}
           onPress={() => setActiveTab(2)}
         >
-          <Text>{t('bank info')}</Text>
+          <Text style={styles.title}>{t('bank info')}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.block}>
@@ -54,7 +54,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: platform.defaultBackgroundColor,
     paddingHorizontal: 5,
-    borderLeftWidth: 0
+    borderLeftWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title: {
+    color: platform.brandBlack,
+    fontFamily: platform.fontRegular
   },
   firstBtn: {
     borderLeftWidth: 1
