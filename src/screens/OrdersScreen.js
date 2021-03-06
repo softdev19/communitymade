@@ -15,9 +15,9 @@ function OrdersScreen({ navigation }) {
     { name: "Serene Black Women's Pant", end_date: "04-01-2021", claimed: "10", completed: "2", payment: "15" }
   ]
   const dataAvailable = [
-    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15" },
-    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15" },
-    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15" },
+    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15", totalQty: 100, unclaimedQty: 50, minQty: 5, maxQty: 20 },
+    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15", totalQty: 100, unclaimedQty: 50, minQty: 5, maxQty: 20 },
+    { name: "Serene Black Women's Pant", end_date: "03-21-2021", remaining: "50", est_time: "90", payment: "15", totalQty: 100, unclaimedQty: 50, minQty: 5, maxQty: 20 }
   ]
   const data = [
     { title: t('your active orders'), data: dataActive },
@@ -41,7 +41,10 @@ function OrdersScreen({ navigation }) {
               remaining={item.remaining}
               est_time={item.est_time}
               onPress={() =>
-                navigation.navigate('OrderDetails', { order: item })
+                navigation.navigate(
+                  item.remaining ? 'OrderNewDetails' : 'OrderDetails',
+                  { order: item }
+                )
               }
             />
           )
