@@ -10,22 +10,17 @@ import InputScrollView from 'react-native-input-scroll-view'
 
 import CompanyTitle from '../components/molecules/CompanyTitle'
 import ScreenTitle from '../components/molecules/ScreenTitle'
-import OrderNewDetailsItem from '../components/organisms/OrderNewDetailsItem'
 import Spacer from '../components/atoms/Spacer'
-import ClaimQuantity from '../components/organisms/ClaimQuantity'
+import OrderSuccessItem from '../components/organisms/OrderSuccessItem'
 
-function OrderNewDetailsScreen({ navigation, route }) {
-  const { order } = route.params
-  const { t } = useTranslation(['order-new-details', 'common'])
-  const [quantity, setQuantity] = useState(order?.minQty)
-  const onPressPDF = () => {
-
-  }
-  const onPressVideo = () => {
+function OrderSuccessScreen({ navigation, route }) {
+  const { order, quantity } = route.params
+  const { t } = useTranslation(['order-success', 'common'])
+  const onPressStart = () => {
 
   }
-  const onPressClaim = () => {
-    navigation.navigate('OrderSuccess', { order, quantity })
+  const onPressCancel = () => {
+    navigation.goBack()
   }
   return (
     <View style={styles.container}>
@@ -36,42 +31,41 @@ function OrderNewDetailsScreen({ navigation, route }) {
         keyboardShouldPersistTaps="always"
       >
         <Spacer />
-        <ScreenTitle title={t('work order details')} />
+        <ScreenTitle title={t('success')} />
+
+        <Spacer size="XS" />
+        <Text style={styles.text}>{t('thank you')}</Text>
+
+        <Spacer size="S" />
+        <ScreenTitle title={t('task details')} />
         <Spacer />
-        <OrderNewDetailsItem
+        <OrderSuccessItem
           task_name={order.name}
           end_date={moment(order.end_date).format('MM/DD/YY')}
           payment={order.payment}
-          totalQty={order.totalQty}
+          claimedQty={quantity}
           est_time={order.est_time}
-          unclaimedQty={order.unclaimedQty}
-          minQty={order.minQty}
-          maxQty={order.maxQty}
         />
-        <Text style={styles.text}>{t('claim text')}</Text>
-        <Spacer />
+        <Spacer size="S" />
         <Button
           raised
           upperCase={false}
           style={{ container: styles.btn }}
-          text={t('view pdf')}
-          onPress={onPressPDF}
+          text={t('start task')}
+          onPress={onPressStart}
         />
+
+        <Spacer />
+        <ScreenTitle title={t('didnt sign up')} />
+        <Spacer size="S" />
         <Button
           raised
           upperCase={false}
           style={{ container: styles.btn }}
-          text={t('view video')}
-          onPress={onPressVideo}
+          text={t('common:cancel')}
+          onPress={onPressCancel}
         />
-        <Spacer />
-        <ClaimQuantity
-          minQty={order.minQty}
-          maxQty={order.maxQty}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          onPressClaim={onPressClaim}
-        />
+
         <View style={styles.footer} />
       </InputScrollView>
     </View>
@@ -86,16 +80,16 @@ const styles = StyleSheet.create({
     height: platform.topSpace + 20
   },
   text: {
+    paddingHorizontal: 32,
     color: platform.brandBlack,
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: platform.fontRegular,
-    paddingHorizontal: 16,
     letterSpacing: 0.4,
-    lineHeight: 14
+    lineHeight: 18
   },
   btn: {
-    marginHorizontal: 32,
-    marginBottom: 10
+    width: platform.deviceWidth - 100,
+    alignSelf: 'center'
   },
   footer: {
     height: 100
@@ -108,4 +102,4 @@ const mapStateToProps = ({}) => {
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderNewDetailsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSuccessScreen)

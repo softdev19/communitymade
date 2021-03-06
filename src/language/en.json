@@ -48,7 +48,8 @@
     "total quantity": "Total Qty:",
     "unclaimed quantity": "Unclaimed Qty:",
     "min quantity": "Min Task Qty:",
-    "max quantity": "Max Task Qty:"
+    "max quantity": "Max Task Qty:",
+    "quantity claimed": "Qty Claimed:"
   },
   "order-details": {
     "active work": "Active Work Order Details",
@@ -65,6 +66,13 @@
     "view video": "View Instructions Video",
     "claim text": "*Please only claim a task quantity you can comfortable complete before the project end date. Failure to complete your tasks on time may impact the Work Orders available to you in the future.",
     "claim task quantity": "Claim Task Quantity"
+  },
+  "order-success": {
+    "success": "Success!",
+    "thank you": "Thank you for signing up. Please head to your pod headquarters (located at 444 main street) and pick up the necessary fabric pieces needed to make the pieces you signed up to make.",
+    "task details": "Task Details",
+    "start task": "Start Task",
+    "didnt sign up": "Didn't Mean To Sign Up?"
   },
   "payments": {
 
@@ -87,7 +95,8 @@
     "continue": "Continue",
     "min": "min",
     "per": "per",
-    "submit": "Submit"
+    "submit": "Submit",
+    "cancel": "Cancel"
   },
   "errors": {
 

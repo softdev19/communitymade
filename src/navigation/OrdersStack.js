@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import OrdersScreen from '../screens/OrdersScreen'
 import OrderDetailsScreen from '../screens/OrderDetailsScreen'
 import OrderNewDetailsScreen from '../screens/OrderNewDetailsScreen'
+import OrderSuccessScreen from '../screens/OrderSuccessScreen'
 import { StackStyle } from './themes'
 
 const Stack = createStackNavigator();
@@ -24,6 +25,11 @@ function OrdersStack() {
       <Stack.Screen
         name="OrderNewDetails"
         component={OrderNewDetailsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderSuccess"
+        component={OrderSuccessScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
