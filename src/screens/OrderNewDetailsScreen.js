@@ -17,7 +17,7 @@ import ClaimQuantity from '../components/organisms/ClaimQuantity'
 function OrderNewDetailsScreen({ navigation, route }) {
   const { order } = route.params
   const { t } = useTranslation(['order-new-details', 'common'])
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(order?.minQty)
   const onPressPDF = () => {
 
   }
@@ -63,7 +63,8 @@ function OrderNewDetailsScreen({ navigation, route }) {
         />
         <Spacer />
         <ClaimQuantity
-          maxQty={20}
+          minQty={order.minQty}
+          maxQty={order.maxQty}
           quantity={quantity}
           setQuantity={setQuantity}
           onPressClaim={() => {}}

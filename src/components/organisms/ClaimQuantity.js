@@ -4,7 +4,13 @@ import platform from '../../helpers/platform'
 import { useTranslation } from 'react-i18next'
 import { Button, IconToggle } from 'react-native-material-ui'
 
-function ClaimQuantity({ quantity, setQuantity, onPressClaim, maxQty }) {
+function ClaimQuantity({
+  quantity,
+  setQuantity,
+  onPressClaim,
+  minQty,
+  maxQty
+}) {
   const { t } = useTranslation('order-new-details')
   return(
     <View style={styles.container}>
@@ -25,7 +31,9 @@ function ClaimQuantity({ quantity, setQuantity, onPressClaim, maxQty }) {
             color={platform.brandBlack}
             style={{ container: styles.icon }}
             maxOpacity={0}
-            onPress={() => setQuantity(quantity === 0 ? 0 : quantity - 1)}
+            onPress={() =>
+              setQuantity(Number(minQty) === quantity ? quantity : quantity - 1)
+            }
         />
         </View>
       </View>
@@ -72,7 +80,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 20,
-    top: -5
+    top: -1
   }
 })
 
