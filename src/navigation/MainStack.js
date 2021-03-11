@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import LoginScreen from '../screens/LoginScreen'
 import RegisterScreen from '../screens/RegisterScreen'
+import OnBoardingScreen from '../screens/OnBoardingScreen';
 import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import { StackStyle } from './themes'
@@ -28,7 +29,7 @@ function MainStack({ initialRouteName }) {
       />
       <Stack.Screen
         name="OnboardingAddress"
-        component={OnboardingAddressScreen}
+        component={OnBoardingScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

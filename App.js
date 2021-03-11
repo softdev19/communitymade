@@ -15,6 +15,8 @@ const store = createStore(rootReducer, applyMiddleware(Thunk))
 
 import AppContainer from './src/navigation/AppContainer'
 
+console.disableYellowBox = true;
+
 const App: () => React$Node = () => {
   return (
     <>
