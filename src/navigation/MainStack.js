@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import LoginScreen from '../screens/LoginScreen'
 import RegisterScreen from '../screens/RegisterScreen'
 import OnBoardingScreen from '../screens/OnBoardingScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
+import SetPasswordScreen from '../screens/SetPasswordScreen';
 import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import { StackStyle } from './themes'
@@ -25,6 +27,16 @@ function MainStack({ initialRouteName }) {
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPasswordScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SetPassword"
+        component={SetPasswordScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

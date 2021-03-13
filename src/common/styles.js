@@ -81,7 +81,7 @@ export const commonStyle = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: COLORS.INPUT_BORDER_COLOR,
     width: fullWidth * 0.75,
-    height: 0.056 * fullHeight,
+    height: 0.058 * fullHeight,
     // height: INPUT_HEIGHT,
     backgroundColor: COLORS.WHITE,
     borderRadius: GetOptimalWidth(40),

@@ -45,7 +45,7 @@ function LoginScreen({ navigation, setUiBlock }) {
     navigation.navigate('Register')
   }
   const onPressReset = () => {
-
+    navigation.navigate('ResetPassword')
   }
   const enabled = isValidEmail && _.size(password) > 5
   return (
