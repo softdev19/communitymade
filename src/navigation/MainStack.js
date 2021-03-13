@@ -7,6 +7,7 @@ import OnBoardingScreen from '../screens/OnBoardingScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SetPasswordScreen from '../screens/SetPasswordScreen';
 import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
+import SignupScreen from '../screens/SignupScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import { StackStyle } from './themes'
 import TabsStack from './TabsStack'
@@ -26,7 +27,7 @@ function MainStack({ initialRouteName }) {
       />
       <Stack.Screen
         name="Register"
-        component={RegisterScreen}
+        component={SignupScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
