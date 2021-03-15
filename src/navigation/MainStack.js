@@ -8,6 +8,7 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SetPasswordScreen from '../screens/SetPasswordScreen';
 import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
 import SignupScreen from '../screens/SignupScreen'
+import SigninScreen from '../screens/SigninScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import { StackStyle } from './themes'
 import TabsStack from './TabsStack'
@@ -22,7 +23,7 @@ function MainStack({ initialRouteName }) {
     >
       <Stack.Screen
         name="Login"
-        component={LoginScreen}
+        component={SigninScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
