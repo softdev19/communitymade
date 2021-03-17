@@ -11,6 +11,7 @@ import {
   Text
 } from 'react-native';
 import _ from 'lodash'
+import { connect } from 'react-redux'
 import {
   COLORS,
   commonStyle as cs,
@@ -19,8 +20,11 @@ import {
   GetOptimalWidth,
   images,
 } from '../../common';
+import { userLogin } from '../../thunk';
+import { setUiBlock } from '../../actions';
 import Button from '../../components/button';
 import InputBox from '../../components/inputBox';
+import { DropDownHolder } from '../../components';
 import platform from '../../helpers/platform'
 import style from './styles';
 
@@ -87,6 +91,8 @@ class SigninScreen extends React.Component {
   }
 
   validate = () => {
+     this.props.dispatchUserLogin();
+    
     Keyboard.dismiss();
     const {
       email,
@@ -221,4 +227,15 @@ class SigninScreen extends React.Component {
   }
 }
 
-export default SigninScreen;
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    setUiBlock,
+    dispatchUserLogin: (data) => dispatch(userLogin(data)),
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SigninScreen)

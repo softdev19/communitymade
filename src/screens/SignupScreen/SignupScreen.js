@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import _ from 'lodash'
+import { connect } from 'react-redux'
 import platform from '../../helpers/platform'
+import { userSignup } from '../../thunk';
 import {
   COLORS,
   commonStyle as cs,
@@ -26,6 +28,8 @@ import InputBox from '../../components/inputBox';
 import ValuePickerModal from '../../components/valuePickerModal';
 // const countries_cities = require('../common/countries.json');
 import style from './styles';
+
+let IS_TESTING = true;
 
 const commonInputProps = {
   style: cs.input,
@@ -63,7 +67,7 @@ const US_STATES = [
   "Abernathy",
 ]
 
-class OnBoardingScreen extends React.Component {
+class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
     this.inputs = {};
@@ -125,6 +129,7 @@ class OnBoardingScreen extends React.Component {
     const {
       email,
       firstName,
+      lastName,
       password,
       confirmPassword,
       mainType,
@@ -152,7 +157,14 @@ class OnBoardingScreen extends React.Component {
       },
       () => {
         if (Object.values(errors).every((value) => value == '')) {
-          this.props.navigation.navigate('OnboardingAddress')
+          let userInfo = {
+            email,
+            password,
+            firstName,
+            lastName,
+            podId: 1,
+          }
+          this.props.navigation.navigate('OnboardingAddress', { userInfo })
         }
       },
     );
@@ -365,6 +377,13 @@ class OnBoardingScreen extends React.Component {
                 <Text style={style.registerText}> {'Login'}</Text>
               </TouchableOpacity>
             </View>
+
+            { IS_TESTING && 
+            <View style={[style.registerContainer,{ paddingTop: 10 }]}>
+              <TouchableOpacity style={style.loginButtonContainer} onPress={() => this.props.navigation.navigate('OnboardingAddress')}>
+                <Text style={style.registerText}> {'PROCEED (TEST MODE)'}</Text>
+              </TouchableOpacity>
+            </View>}
           </View>
         </ScrollView>
         </KeyboardAvoidingView>
@@ -385,4 +404,14 @@ class OnBoardingScreen extends React.Component {
   }
 }
 
-export default OnBoardingScreen;
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    dispatchUserSignup: (data) => dispatch(userSignup(data)),
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen)

@@ -23,7 +23,8 @@ import {
 import Button from '../../components/button';
 import InputBox from '../../components/inputBox';
 import ValuePickerModal from '../../components/valuePickerModal';
-// const countries_cities = require('../common/countries.json');
+import { connect } from 'react-redux'
+import { userSignup } from '../../thunk';
 import style from './styles';
 
 const commonInputProps = {
@@ -36,6 +37,7 @@ const commonInputProps = {
   autoCapitalize: 'none',
 };
 
+let IS_TESTING = true;
 const userNameMaxLength =  60;  // globalconstants.userNameIdMaxLength;
 const userNameMinLength =  6;  // globalconstants.userNameIdMinLength;
 
@@ -154,10 +156,13 @@ class OnBoardingScreen extends React.Component {
   };
 
   validate = () => {
+    let { userInfo } = this.props.route.params;
+    console.log(userInfo)
     Keyboard.dismiss();
     const {
       city,
       address1,
+      address2,
       phoneNumber,
       zip,
       mainType,
@@ -182,7 +187,20 @@ class OnBoardingScreen extends React.Component {
       },
       () => {
         if (Object.values(errors).every((value) => value == '')) {
-          alert('Success')
+          this.props.dispatchUserSignup({
+            email: userInfo?.email,
+            password: userInfo?.password,
+            firstName: userInfo?.firstName,
+            lastName: userInfo?.lastName,
+            address1,
+            address2,
+            podId: 1,
+            phone: phoneNumber,
+            city,
+            state: mainType,
+            zip
+          })
+          // this.props.navigation.navigate('OnboardingSkills')
         }
       },
     );
@@ -382,6 +400,12 @@ class OnBoardingScreen extends React.Component {
               </View>
             </View>
           </View>
+            { IS_TESTING && 
+            <View style={[style.registerContainer,{ paddingTop: 10 }]}>
+              <TouchableOpacity style={style.loginButtonContainer} onPress={() => this.props.navigation.navigate('OnboardingSkills')}>
+                <Text style={style.registerText}> {'PROCEED (TEST MODE)'}</Text>
+              </TouchableOpacity>
+            </View>}
         </ScrollView>
         </KeyboardAvoidingView>
         
@@ -401,4 +425,14 @@ class OnBoardingScreen extends React.Component {
   }
 }
 
-export default OnBoardingScreen;
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    dispatchUserSignup: (data) => dispatch(userSignup(data)),
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnBoardingScreen)

@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
 import MainStack from './MainStack'
+import { navigationRef } from './NavigationService';
 import { NavigationTheme } from './themes'
 
 function AppContainer() {
   const routeNameRef = useRef();
-  const navigationRef = useRef();
+  // const navigationRef = useRef();
   const [initialRouteName, setInitialRouteName] = useState(null)
   return (
     <NavigationContainer
