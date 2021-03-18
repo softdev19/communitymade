@@ -10,6 +10,7 @@ import {
   View,
   Text
 } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import platform from '../../helpers/platform'
 import {
@@ -24,6 +25,7 @@ import Button from '../../components/button';
 import InputBox from '../../components/inputBox';
 import ValuePickerModal from '../../components/valuePickerModal';
 import { connect } from 'react-redux'
+import { setUiBlock } from '../../actions'
 import { userSignup } from '../../thunk';
 import style from './styles';
 
@@ -37,7 +39,7 @@ const commonInputProps = {
   autoCapitalize: 'none',
 };
 
-let IS_TESTING = true;
+let IS_TESTING = false;
 const userNameMaxLength =  60;  // globalconstants.userNameIdMaxLength;
 const userNameMinLength =  6;  // globalconstants.userNameIdMinLength;
 
@@ -95,6 +97,29 @@ class OnBoardingScreen extends React.Component {
         subType: '',
       },
     };
+  }
+
+  async componentDidUpdate(prevProps, prevState){
+    if(prevProps.auth != this.props.auth){
+      try{
+        if(this.props.auth?.user?.user?.email){
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                { name: 'OnboardingSkills' },
+                // {
+                //   name: 'Home',
+                //   params: { user: 'jane' },
+                // },
+              ],
+            })
+          );
+        }
+      } catch (e){
+        
+      }
+    }
   }
 
   onValueChange = (fieldName) => (value) => {
@@ -156,6 +181,22 @@ class OnBoardingScreen extends React.Component {
   };
 
   validate = () => {
+    // for testing
+
+    //  this.props.dispatchUserSignup({
+    //   email: 'faisal11@mail.com',
+    //   password: 'password',
+    //   firstName: 'firstName',
+    //   lastName: 'lastName',
+    //   address1: 'address1',
+    //   address2: 'address2',
+    //   podId: 1,
+    //   phone: 122233232,
+    //   city: 'cewcew',
+    //   state: 'cewcew',
+    //   zip: '3efce'
+    // })
+
     let { userInfo } = this.props.route.params;
     console.log(userInfo)
     Keyboard.dismiss();
@@ -200,7 +241,6 @@ class OnBoardingScreen extends React.Component {
             state: mainType,
             zip
           })
-          // this.props.navigation.navigate('OnboardingSkills')
         }
       },
     );
@@ -425,12 +465,14 @@ class OnBoardingScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth }) => {
+  return {
+    auth
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { 
+  return {
     dispatchUserSignup: (data) => dispatch(userSignup(data)),
    }
 }

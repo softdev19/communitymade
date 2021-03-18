@@ -6,6 +6,7 @@ import {
   userSignupSuccess,
   userSignupFailure,
   setUiBlock,
+  updateUserInfo,
 } from '../actions';
 
 import { navigate } from '../navigation/NavigationService';
@@ -20,12 +21,13 @@ export function userLogin(data) {
 
     return API.fetch({
       method: 'post',
-      url: `${SERVER_URL}${END_POINTS.SIGNUP}`,
+      url: `${SERVER_URL}${END_POINTS.LOGIN}`,
       data: data
     })
       .then((response) => {
-        dispatch(userLoginSuccess(response));
+        dispatch(updateUserInfo(response?.data));
         dispatch(setUiBlock(false));
+        ShowSuccess('User logged in successfully');
         return response;
       })
       .catch((error) => {
@@ -50,10 +52,9 @@ export function userSignup(data) {
     })
       .then((response) => {
         __DEV__ && console.log(response);
-        dispatch(userSignupSuccess(response));
+        dispatch(updateUserInfo(response?.data));
         dispatch(setUiBlock(false));
         ShowSuccess('User created successfully');
-        navigate('OnboardingSkills');
         return response;
       })
       .catch((error) => {

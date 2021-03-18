@@ -15,6 +15,7 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import platform from '../../helpers/platform'
 import { userSignup } from '../../thunk';
+import { setUiBlock } from '../../actions'
 import {
   COLORS,
   commonStyle as cs,
@@ -29,7 +30,7 @@ import ValuePickerModal from '../../components/valuePickerModal';
 // const countries_cities = require('../common/countries.json');
 import style from './styles';
 
-let IS_TESTING = true;
+let IS_TESTING = false;
 
 const commonInputProps = {
   style: cs.input,
@@ -409,7 +410,8 @@ const mapStateToProps = ({}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { 
+  return {
+    setUiBlock,
     dispatchUserSignup: (data) => dispatch(userSignup(data)),
    }
 }

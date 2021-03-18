@@ -4,7 +4,7 @@ export default function ShowSuccess(text) {
   Toast.show({
     text1: text,
     type: 'success',
-    position: 'bottom',
+    position: 'top',
     visibilityTime: 5000
   })
 }

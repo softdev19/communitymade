@@ -14,7 +14,7 @@ const _initialState = {
     phone: null
   }
 }
-
+ 
 export default function reducer(state = _initialState, { payload, type }) {
   switch (type) {
     case actionTypes.UPDATE_USER_INFO:

@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import { CommonActions } from '@react-navigation/native';
 import {
   COLORS,
   commonStyle as cs,
@@ -54,6 +55,29 @@ class SigninScreen extends React.Component {
     };
   }
 
+  async componentDidUpdate(prevProps, prevState){
+    if(prevProps.auth != this.props.auth){
+      try{
+        if(this.props.auth?.user?.user?.email){
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                { name: 'Home' },
+                // {
+                //   name: 'Home',
+                //   params: { user: 'jane' },
+                // },
+              ],
+            })
+          );
+        }
+      } catch (e){
+        
+      }
+    }
+  }
+
   onValueChange = (fieldName) => (value) => {
     this.setState({
       values: {
@@ -91,8 +115,6 @@ class SigninScreen extends React.Component {
   }
 
   validate = () => {
-     this.props.dispatchUserLogin();
-    
     Keyboard.dismiss();
     const {
       email,
@@ -110,7 +132,7 @@ class SigninScreen extends React.Component {
       },
       () => {
         if (Object.values(errors).every((value) => value == '')) {
-          this.props.navigation.navigate('OnboardingAddress')
+            this.props.dispatchUserLogin({ email, password });
         }
       },
     );
@@ -227,13 +249,14 @@ class SigninScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth }) => {
+  return {
+    auth
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return { 
-    setUiBlock,
     dispatchUserLogin: (data) => dispatch(userLogin(data)),
    }
 }

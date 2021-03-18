@@ -32,7 +32,7 @@ export default function ShowError(error, ns) {
   Toast.show({
     text1: text,
     type: 'error',
-    position: 'bottom',
+    position: 'top',
     visibilityTime: 5000
   })
 }
