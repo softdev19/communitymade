@@ -14,8 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import platform from '../../helpers/platform'
-import { userSignup } from '../../thunk';
-import { setUiBlock } from '../../actions'
+import { userSignup, fetchPods } from '../../thunk';
 import {
   COLORS,
   commonStyle as cs,
@@ -27,7 +26,6 @@ import {
 import Button from '../../components/button';
 import InputBox from '../../components/inputBox';
 import ValuePickerModal from '../../components/valuePickerModal';
-// const countries_cities = require('../common/countries.json');
 import style from './styles';
 
 let IS_TESTING = false;
@@ -43,30 +41,9 @@ const commonInputProps = {
 };
 
 const Actions = {
-  States: 'US States',
+  States: 'Select Pod',
   Sub_Category: 'Sub category', // to handle cities based on selected COUNTRY / STATE
 };
-
-const US_STATES = [
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbotsford",
-  "Abbott",
-  "Abbottstown",
-  "Abercrombie",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen Proving Ground",
-  "Abernathy",
-]
 
 class SignupScreen extends React.Component {
   constructor(props) {
@@ -74,7 +51,7 @@ class SignupScreen extends React.Component {
     this.inputs = {};
     this.state = {
       valuePickerTitle: '',
-      valuePickerData: US_STATES,
+      valuePickerData: [],
       valuePickerModalVisible: false,
       values: {
         firstName: '',
@@ -82,7 +59,7 @@ class SignupScreen extends React.Component {
         email: '',
         password: '',
         confirmPassword: '',
-        mainType: '',
+        selectedPodName: '',
         subType: '',
       },
       errors: {
@@ -91,10 +68,14 @@ class SignupScreen extends React.Component {
         email: '',
         password: '',
         confirmPassword: '',
-        mainType: '',
+        selectedPodName: '',
         subType: '',
       },
     };
+  }
+
+  componentDidMount(){
+    this.props.dispatchFetchPods();
   }
 
   onValueChange = (fieldName) => (value) => {
@@ -133,13 +114,13 @@ class SignupScreen extends React.Component {
       lastName,
       password,
       confirmPassword,
-      mainType,
+      selectedPodName,
     } = this.state.values;
     let errors = {
       firstName: firstName ? '' : 'First Name is required',
       password: password ? '' : 'New password is required',
       confirmPassword: confirmPassword ? '' : 'Please re-enter new password',
-      mainType: mainType ? '' : 'State selection is required',
+      selectedPodName: selectedPodName ? '' : 'Pod selection is required',
     };
 
     errors = {
@@ -163,7 +144,7 @@ class SignupScreen extends React.Component {
             password,
             firstName,
             lastName,
-            podId: 1,
+            podId: this.props?.pods[this.props?.pods?.findIndex(pod => pod.name == selectedPodName)].id,
           }
           this.props.navigation.navigate('OnboardingAddress', { userInfo })
         }
@@ -171,16 +152,16 @@ class SignupScreen extends React.Component {
     );
   };
 
-  updateMainType = (value) => {
+  updateselectedPodName = (value) => {
     this.setState({
       values: {
         ...this.state.values,
-        ['mainType']: value,
+        ['selectedPodName']: value,
         ['subType']: '',  // to pickup other values
       },
       errors: {
         ...this.state.errors,
-        ['mainType']: '',
+        ['selectedPodName']: '',
       },
     });
   };
@@ -202,6 +183,8 @@ class SignupScreen extends React.Component {
       values: { firstName, lastName, email, password, confirmPassword },
     } = this.state;
 
+    let podsName = this.props?.pods?.map(pod => pod.name);
+    console.log(this.state.selectedPodName);
     return (
       <ImageBackground source={images.appBackground} style={cs.container}>
         <KeyboardAvoidingView
@@ -347,13 +330,13 @@ class SignupScreen extends React.Component {
                     );
                   }}>
                   <Text style={style.inputStyle}>
-                    {this.state?.values?.mainType == '' ? 'Select State' : this.state?.values?.mainType}
+                    {this.state?.values?.selectedPodName == '' ? 'Select Pod' : this.state?.values?.selectedPodName}
                   </Text>
                   {/* <AntDesign name="caretdown" color={'#9D9D9D'} size={GetOptimalHieght(10)}></AntDesign> */}
                 </TouchableOpacity>
-                {errors.mainType ? (
+                {errors.selectedPodName ? (
                   <View style={[cs.errorWrapper, { marginTop: GetOptimalHieght(1), paddingLeft: GetOptimalWidth(15) }]}>
-                    <Text style={style.errorStyle}>{errors.mainType}</Text>
+                    <Text style={style.errorStyle}>{errors.selectedPodName}</Text>
                   </View>
                 ) : null}
               </View>
@@ -391,11 +374,11 @@ class SignupScreen extends React.Component {
         
         <ValuePickerModal
           title={this.state.valuePickerTitle}
-          data={this.state.valuePickerData}
+          data={podsName}
           valuePickerModalVisible={this.state.valuePickerModalVisible}
           UpdateValue={(value) => {
             if (this.state.valuePickerTitle == Actions.States) {
-              this.updateMainType(value);
+              this.updateselectedPodName(value);
             } 
           }}
           toggleModal={this.toggleValuePickerModal}>
@@ -405,13 +388,17 @@ class SignupScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ generalData }) => {
+  let { pods } = generalData
+  return {
+    pods
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUiBlock,
+    fetchPods,
+    dispatchFetchPods: () => dispatch(fetchPods()),
     dispatchUserSignup: (data) => dispatch(userSignup(data)),
    }
 }

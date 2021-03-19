@@ -11,6 +11,7 @@ import {
   Text
 } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
+import _ from 'lodash'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import platform from '../../helpers/platform'
 import {
@@ -27,6 +28,7 @@ import ValuePickerModal from '../../components/valuePickerModal';
 import { connect } from 'react-redux'
 import { setUiBlock } from '../../actions'
 import { userSignup } from '../../thunk';
+import US_STATES from '../../helpers/US_States';
 import style from './styles';
 
 const commonInputProps = {
@@ -49,26 +51,6 @@ const Actions = {
   Sub_Category: 'Sub category', // to handle cities based on selected COUNTRY / STATE
 };
 
-const US_STATES = [
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbeville",
-  "Abbotsford",
-  "Abbott",
-  "Abbottstown",
-  "Abercrombie",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen",
-  "Aberdeen Proving Ground",
-  "Abernathy",
-]
 
 class OnBoardingScreen extends React.Component {
   constructor(props) {
@@ -218,7 +200,7 @@ class OnBoardingScreen extends React.Component {
 
     errors = {
       ...errors,
-      ...{ city: this.validateUserName(city) ? '' : 'Enter a valid city name' },
+      ...{ city: _.size(city) > 0 ? '' : 'Enter a valid city name' },
       ...{ phoneNumber: this.validatePhone(phoneNumber) ? '' : 'Phone number should contain atleast 7 digits' }
     };
 
@@ -235,7 +217,7 @@ class OnBoardingScreen extends React.Component {
             lastName: userInfo?.lastName,
             address1,
             address2,
-            podId: 1,
+            podId: userInfo?.podId,
             phone: phoneNumber,
             city,
             state: mainType,
