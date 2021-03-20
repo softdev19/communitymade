@@ -23,7 +23,7 @@ function MainStack({ initialRouteName }) {
     >
       <Stack.Screen
         name="Login"
-        component={SigninScreen}
+        component={TabsStack}
         options={{ headerShown: false }}
       />
       <Stack.Screen
