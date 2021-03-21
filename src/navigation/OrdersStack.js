@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import OrdersScreen from '../screens/OrdersScreen'
-import OrderDetailsScreen from '../screens/OrderDetailsScreen'
+import OrderDetailsScreen from '../screens/OrderDetailsScreen/index';
 import OrderNewDetailsScreen from '../screens/OrderNewDetailsScreen'
 import AllOrdersScreen from '../screens/AllOrdersScreen'
 import OrderSuccessScreen from '../screens/OrderSuccessScreen'
