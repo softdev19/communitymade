@@ -123,7 +123,7 @@ class SigninScreen extends React.Component {
 
     let errors = {
       email: this.validateEmail(email) ? '' : 'Enter a valid email',
-      password:  _.size(password) > 6 ? ''  : 'Password should contain atleast 6 characters'
+      password:  _.size(password) >= 6 ? ''  : 'Password should contain atleast 6 characters'
     };
 
     this.setState(

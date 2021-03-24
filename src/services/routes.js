@@ -5,4 +5,6 @@ export const END_POINTS = {
   LOGIN: `users/login`,
   SIGNUP: `users`,
   PODS: `pods`,
+  WORK_ORDERS:'work-orders',
+  ALL_SKILLS: 'skills',
 };

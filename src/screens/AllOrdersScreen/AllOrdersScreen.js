@@ -11,7 +11,8 @@ import styles from './styles';
 import { connect } from 'react-redux'
 import ActiveOrders from './tabs/ActiveOrders';
 import AvailableOrders from './tabs/AvailableOrders';
-
+import { getActiveWorkOrders, getAvailableWorkOrders, getAllSkills, getSkillsById } from '../../thunk';
+import { setUiBlock } from '../../actions';
 
 class AllOrdersScreen extends React.Component {
   constructor(props) {
@@ -47,6 +48,35 @@ class AllOrdersScreen extends React.Component {
   editProfile = () => {
     this.props.navigation.navigate('ConsultantEditProfile');
   };
+
+  async componentDidUpdate(prevProps, prevState){
+    if((prevProps.activeOrders != this.props.activeOrders) || (prevProps.availableOrders != this.props.availableOrders)){
+      try{
+        if(this.props.activeOrders?.length > 0 || this.props.availableOrders?.length > 0){
+          this.props.setUiBlock(false);
+        }
+      } catch (e){
+        
+      }
+    }
+  }
+
+
+  componentDidMount(){
+    console.log('this.props',this.props)
+    this.props.setUiBlock(true);
+    this.props.getAllSkills();
+    this.props.getSkillsById(32323);
+    this.props.getActiveWorkOrders({
+      podId: 1,
+      userId: 1
+    });
+
+    this.props.getAvailableWorkOrders({
+      podId: 1,
+      userId: 1
+    });
+  }
 
   render() {
     const { index } = this.state;
@@ -116,15 +146,23 @@ class AllOrdersScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, workOrders }) => {
+  let { activeOrders, availableOrders } = workOrders;
+
   return {
-    auth
+    auth, 
+    activeOrders,
+    availableOrders
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      
+    setUiBlock: (value) => dispatch(setUiBlock(value)),
+    getAllSkills:() => dispatch(getAllSkills()),
+    getSkillsById:(id) => dispatch(getSkillsById(id)),
+    getActiveWorkOrders: (data) => dispatch(getActiveWorkOrders(data)),
+    getAvailableWorkOrders: (data) => dispatch(getAvailableWorkOrders(data)),
    }
 }
 

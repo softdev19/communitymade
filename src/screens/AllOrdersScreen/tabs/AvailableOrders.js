@@ -18,31 +18,35 @@ class AvailableOrders extends Component {
   }
 
   render() {
+    let { availableOrders } = this.props;
     return (
       <>
-          <View style={styles.scrollView}>
-            {dataAvailable.length > 0 && (
-              <FlatList
-                data={dataAvailable}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => {
-                  return (
-                    <TaskCard
-                    data={item}
-                    onPress={() =>
-                    this.props.navigation.navigate(
-                      item.remaining ? 'OrderNewDetails' : 'OrderDetails',
-                      { order: item }
-                      )
-                    }
-                    showButton
-                  />
-                  )
-                }}
-                showsVerticalScrollIndicator={true}
-              />) 
-            }
-          </View>
+        <View style={styles.scrollView}>
+          {availableOrders.length > 0 ? (
+            <FlatList
+              data={availableOrders}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <TaskCard
+                  data={item}
+                  onPress={() =>
+                  this.props.navigation.navigate(
+                    item.remaining ? 'OrderNewDetails' : 'OrderDetails',
+                    { order: item }
+                    )
+                  }
+                  showButton
+                />
+                )
+              }}
+              showsVerticalScrollIndicator={true}
+            />) :
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+              <Text> No data available </Text>
+            </View>
+          }
+        </View>
       </>
     );
   }

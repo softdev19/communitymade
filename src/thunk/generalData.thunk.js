@@ -20,7 +20,7 @@ export function fetchPods() {
     })
       .then((response) => {
         __DEV__ && console.log(response);
-        dispatch(fetchPodsSuccess(response?.data?.pods));
+        dispatch(fetchPodsSuccess(response?.data));
         return response;
       })
       .catch((error) => {

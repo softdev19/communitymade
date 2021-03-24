@@ -22,6 +22,7 @@ class OrderDetailsScreen extends React.Component {
   };
 
   render() {
+    let { order } = this.props.route.params;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
@@ -31,13 +32,8 @@ class OrderDetailsScreen extends React.Component {
           />
           <View style={{ marginTop: 10 }}>
           <TaskCard
-            data={item}
-            onPress={() =>
-            this.props.navigation.navigate(
-              item.remaining ? 'OrderNewDetails' : 'OrderDetails',
-              { order: item })
-            }
-            />
+            data={order}
+          />
           </View>
         </View>
       </ImageBackground>

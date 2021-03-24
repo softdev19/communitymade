@@ -11,14 +11,14 @@ class TaskCard extends Component {
   render() {
     const { data, onPress, showButton } = this.props;
     return (
-      <View style={[styles.authBox]}>
+      <View style={[styles.authBox, cs.elevatedShadow]}>
         <View style={styles.topContainer}>
           <View style={{paddingVertical:GetOptimalHieght(5)}}>
             <Text style={styles.text}>{data?.name || 'Name'}</Text>
-            <Text style={styles.durationText}> {'End Date:'} {moment(data?.end_date).format('MM-DD-YY') || '0'} </Text>
+            <Text style={styles.durationText}> {'End Date:'} {moment(data?.endDate).format('MM-DD-YY') || '0'} </Text>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <Text style={styles.bottomText}>Payment:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.payment || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.paymentTerms || '0'}</Text>
           </View>
           </View>
           {
@@ -32,23 +32,23 @@ class TaskCard extends Component {
 
         <View style={styles.bottomContainer}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Claimed:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.claimed || '1'}</Text>
+            <Text style={styles.bottomText}>Total:</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.totalQuantity || '1'}</Text>
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Completed:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completed || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
           </View>
         </View>
 
         <View style={[styles.bottomContainer, { borderTopWidth: 0 }]}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Remaining:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.remaining || '0'}</Text>
+            <Text style={styles.bottomText}>Max Task Quantity:</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.maxTaskQuantity || '0'}</Text>
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Est Time:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.est_time || '2 Days'}</Text>
+            <Text style={styles.bottomText}>Max Est Time:</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.timeEstimateMax || ''}</Text>
           </View>
         </View>
       </View>

@@ -19,32 +19,35 @@ class ActiveOrders extends Component {
   }
 
   render() {
-    console.log(' this.props', this.props);
+    let { activeOrders } = this.props;
     return (
       <>
-          <View style={styles.scrollView}>
-            {dataActive.length > 0 && (
-              <FlatList
-                data={dataActive}
-                keyExtractor={(item) => item._id}
-                renderItem={({ item }) => {
-                  return (
-                    <TaskCard
-                      data={item}
-                      onPress={() =>
-                      this.props.navigation.navigate(
-                        item.remaining ? 'OrderNewDetails' : 'OrderDetails',
-                        { order: item }
-                        )
-                      }
-                      showButton
-                    />
-                  )
-                }}
-                showsVerticalScrollIndicator={true}
-              />) 
-            }
-          </View>
+        <View style={styles.scrollView}>
+          {activeOrders.length > 0 ? (
+            <FlatList
+              data={activeOrders}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => {
+                return (
+                  <TaskCard
+                    data={item}
+                    onPress={() =>
+                    this.props.navigation.navigate(
+                      item.remaining ? 'OrderNewDetails' : 'OrderDetails',
+                      { order: item }
+                      )
+                    }
+                    showButton
+                  />
+                )
+              }}
+              showsVerticalScrollIndicator={true}
+            />) :
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+              <Text> No data available </Text>
+            </View>
+          }
+        </View>
       </>
     );
   }
