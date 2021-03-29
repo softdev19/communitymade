@@ -10,6 +10,7 @@ import {
 } from '../actions';
 
 import { navigate } from '../navigation/NavigationService';
+import AsyncStorage from '@react-native-community/async-storage';
 import { API, SERVER_URL, END_POINTS } from '../services';
 import ShowError from '../helpers/ShowError';
 import ShowSuccess from '../helpers/ShowSuccess';
@@ -28,6 +29,8 @@ export function userLogin(data) {
         dispatch(updateUserInfo(response?.data));
         dispatch(setUiBlock(false));
         ShowSuccess('User logged in successfully');
+        let token = response?.data?.token;
+        AsyncStorage.setItem('token', `${'Bearer ' + token}`);
         return response;
       })
       .catch((error) => {
@@ -55,6 +58,8 @@ export function userSignup(data) {
         dispatch(updateUserInfo(response?.data));
         dispatch(setUiBlock(false));
         ShowSuccess('User created successfully');
+        let token = response?.data?.token;
+        AsyncStorage.setItem('token', `${'Bearer ' + token}`);
         return response;
       })
       .catch((error) => {

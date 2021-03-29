@@ -32,7 +32,7 @@ class AvailableOrders extends Component {
                   data={item}
                   onPress={() =>
                   this.props.navigation.navigate(
-                    item.remaining ? 'OrderNewDetails' : 'OrderDetails',
+                     'AvaiableOrderDetailsScreen',
                     { order: item }
                     )
                   }

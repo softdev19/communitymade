@@ -1,17 +1,21 @@
 import axios from 'axios';
 import _ from 'lodash';
+import AsyncStorage from '@react-native-community/async-storage';
+
+
+const headers = async () => {
+  let token = await AsyncStorage.getItem('token', null);
+  return {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: token,
+  };
+};
 
 class API {
-  static headers() {
-    return {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    }
-  }
-
-  static fetch(options) {
-    if (options.authorized != false)
-      options.headers = _.merge(this.headers(), options.headers)
+ 
+  static fetch = async (options) => {
+    if (options.authorized != false) options.headers = _.merge(await headers(), options.headers);
 
     return axios(options).catch(errorResponse => {
 

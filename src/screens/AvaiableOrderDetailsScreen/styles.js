@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import { commonStyle as cs, fullWidth, GetOptimalWidth,scaledFontSize, GetOptimalHieght } from '../../common/styles';
 import COLORS from '../../common/colors';
+import platform from '../../helpers/platform'
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -74,6 +75,53 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: GetOptimalWidth(16),
+  },
+  header: {
+    height: platform.topSpace + 20
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title: {
+    color: platform.brandBlack,
+    fontSize: 13,
+    fontFamily: platform.fontBold,
+  },
+  subtitle: {
+    color: platform.brandBlack,
+    fontSize: 13,
+    fontFamily: platform.fontRegular,
+    paddingLeft: 5
+  },
+  btn: {
+    marginHorizontal: 32,
+    marginBottom: 10
+  },
+  inputContainer: {
+    alignSelf: 'center'
+  },
+  input: {
+    width: platform.deviceWidth - 32 - 32,
+    height: null,
+    minHeight: 36
+  },
+  footer: {
+    height: 100
+  },
+  smallBtn: {
+    width: 160,
+    alignSelf: 'flex-end',
+    marginRight: 32
+  },
+  text: {
+    color: platform.brandBlack,
+    fontSize: 12,
+    fontFamily: platform.fontRegular,
+    paddingHorizontal: 16,
+    letterSpacing: 0.4,
+    lineHeight: 14
   },
 });
 

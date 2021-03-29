@@ -99,6 +99,7 @@ export function getAllSkills() {
     })
       .then((response) => {
         __DEV__ && console.log(response);
+        dispatch(setUiBlock(false));
         dispatch(fetchAllSkillsSuccess(response?.data));
         return response;
       })

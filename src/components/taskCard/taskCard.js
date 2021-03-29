@@ -14,11 +14,14 @@ class TaskCard extends Component {
       <View style={[styles.authBox, cs.elevatedShadow]}>
         <View style={styles.topContainer}>
           <View style={{paddingVertical:GetOptimalHieght(5)}}>
-            <Text style={styles.text}>{data?.name || 'Name'}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.text}>{'Task Name:  '}</Text>
+              <Text style={styles.text}>{data?.name || 'Name'}</Text>
+            </View>
             <Text style={styles.durationText}> {'End Date:'} {moment(data?.endDate).format('MM-DD-YY') || '0'} </Text>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <Text style={styles.bottomText}>Payment:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.paymentTerms || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{`$${data?.paymentTerms} / per` || '0'}</Text>
           </View>
           </View>
           {
@@ -32,11 +35,11 @@ class TaskCard extends Component {
 
         <View style={styles.bottomContainer}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Total:</Text>
+            <Text style={styles.bottomText}>Qty Total:</Text>
             <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.totalQuantity || '1'}</Text>
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Completed:</Text>
+            <Text style={styles.bottomText}>Qty Completed:</Text>
             <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
           </View>
         </View>

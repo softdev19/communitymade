@@ -9,15 +9,39 @@ const _initialState = {
 
 export default function reducer(state = _initialState, { payload, type }) {
   switch (type) {
+    case actionTypes.FETCH_ACTIVE_WORK_ORDERS_REQUEST:
+      return {
+        ...state,
+        activeWorkOrdersFetchSuccess: false,
+      }
     case actionTypes.FETCH_ACTIVE_WORK_ORDERS_SUCCESS:
       return {
         ...state,
-        activeOrders: payload
+        activeWorkOrdersFetchSuccess: true,
+        activeOrders: payload,
+      }
+    case actionTypes.FETCH_ACTIVE_WORK_ORDERS_ERROR:
+      return {
+        ...state,
+        activeWorkOrdersFetchSuccess: false
+      }
+    
+    case actionTypes.FETCH_AVAILABLE_WORK_ORDERS_REQUEST:
+      return {
+        ...state,
+        availableWorkOrdersFetchSuccess: false,
+      }
+
+    case actionTypes.FETCH_AVAILABLE_WORK_ORDERS_ERROR:
+      return {
+        ...state,
+        availableWorkOrdersFetchSuccess: false
       }
 
     case actionTypes.FETCH_AVAILABLE_WORK_ORDERS_SUCCESS:
       return {
         ...state,
+        availableWorkOrdersFetchSuccess: true,
         availableOrders: payload
       }
     

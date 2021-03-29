@@ -2,7 +2,8 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import OrdersScreen from '../screens/OrdersScreen'
-import OrderDetailsScreen from '../screens/OrderDetailsScreen/index';
+import ActiveOrderDetailsScreen from '../screens/ActiveOrderDetailsScreen';
+import AvaiableOrderDetailsScreen from '../screens/AvaiableOrderDetailsScreen';
 import OrderNewDetailsScreen from '../screens/OrderNewDetailsScreen'
 import AllOrdersScreen from '../screens/AllOrdersScreen'
 import OrderSuccessScreen from '../screens/OrderSuccessScreen'
@@ -20,7 +21,12 @@ function OrdersStack() {
       />
       <Stack.Screen
         name="OrderDetails"
-        component={OrderDetailsScreen}
+        component={ActiveOrderDetailsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AvaiableOrderDetailsScreen"
+        component={AvaiableOrderDetailsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

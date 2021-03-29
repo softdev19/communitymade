@@ -10,6 +10,8 @@ import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
 import SignupScreen from '../screens/SignupScreen'
 import SigninScreen from '../screens/SigninScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
+import WebViewScreen from '../screens/WebViewScreen'
+
 import { StackStyle } from './themes'
 import TabsStack from './TabsStack'
 
@@ -23,7 +25,7 @@ function MainStack({ initialRouteName }) {
     >
       <Stack.Screen
         name="Login"
-        component={TabsStack}
+        component={SigninScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -54,6 +56,11 @@ function MainStack({ initialRouteName }) {
       <Stack.Screen
         name="Home"
         component={TabsStack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WebViewScreen"
+        component={WebViewScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

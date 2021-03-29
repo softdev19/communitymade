@@ -7,4 +7,5 @@ export const END_POINTS = {
   PODS: `pods`,
   WORK_ORDERS:'work-orders',
   ALL_SKILLS: 'skills',
+  USERS:`users`
 };

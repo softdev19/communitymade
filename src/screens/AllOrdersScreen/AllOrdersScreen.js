@@ -25,15 +25,15 @@ class AllOrdersScreen extends React.Component {
   tabsConfig = () => {
     const routes = [
       {
-        key: 'Active Orders',
-        title: 'Active Orders',
-        props: this.props,
-      },
-      {
         key: 'Available Orders',
         title: 'Available Orders',
         props: this.props,
       },
+      {
+        key: 'Active Orders',
+        title: 'Active Orders',
+        props: this.props,
+      }
     ];
 
     let tabData = [];
@@ -50,9 +50,9 @@ class AllOrdersScreen extends React.Component {
   };
 
   async componentDidUpdate(prevProps, prevState){
-    if((prevProps.activeOrders != this.props.activeOrders) || (prevProps.availableOrders != this.props.availableOrders)){
+    if((prevProps.availableWorkOrdersFetchSuccess != this.props.availableWorkOrdersFetchSuccess) || (prevProps.activeWorkOrdersFetchSuccess != this.props.activeWorkOrdersFetchSuccess)){
       try{
-        if(this.props.activeOrders?.length > 0 || this.props.availableOrders?.length > 0){
+        if(this.props.availableWorkOrdersFetchSuccess || this.props.activeWorkOrdersFetchSuccess){
           this.props.setUiBlock(false);
         }
       } catch (e){
@@ -61,21 +61,26 @@ class AllOrdersScreen extends React.Component {
     }
   }
 
-
+  // for webvew screen testing
+  // this.props.navigation.navigate('WebViewScreen', {url: 'https://www.youtube.com/watch?v=hMy5za-m5Ew&list=RDwQ8cfdBzaHI&index=6', title: 'test' })
   componentDidMount(){
-    console.log('this.props',this.props)
     this.props.setUiBlock(true);
-    this.props.getAllSkills();
-    this.props.getSkillsById(32323);
-    this.props.getActiveWorkOrders({
-      podId: 1,
-      userId: 1
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      let { user } = this.props;
+      this.props.getActiveWorkOrders({
+        podId: user?.user?.podId,
+        userId: user?.user?.id
+      });
+  
+      this.props.getAvailableWorkOrders({
+        podId: 1,
+        userId: 1
+      });
     });
+  }
 
-    this.props.getAvailableWorkOrders({
-      podId: 1,
-      userId: 1
-    });
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   render() {
@@ -147,12 +152,14 @@ class AllOrdersScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth, workOrders }) => {
-  let { activeOrders, availableOrders } = workOrders;
-
+  let { activeOrders, availableOrders, activeWorkOrdersFetchSuccess, availableWorkOrdersFetchSuccess } = workOrders;
+  let { user } = auth;
   return {
-    auth, 
+    user, 
     activeOrders,
-    availableOrders
+    availableOrders,
+    activeWorkOrdersFetchSuccess,
+    availableWorkOrdersFetchSuccess
   }
 }
 

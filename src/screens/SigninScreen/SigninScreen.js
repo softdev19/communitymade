@@ -78,6 +78,10 @@ class SigninScreen extends React.Component {
     }
   }
 
+  componentDidMount(){
+    this.props.dispatchUserLogin({ email : "example@mail.com", password: "password" });
+  }
+
   onValueChange = (fieldName) => (value) => {
     this.setState({
       values: {
