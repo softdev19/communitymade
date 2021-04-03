@@ -14,7 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import platform from '../../helpers/platform'
-import { userSignup, fetchPods } from '../../thunk';
+import { getAllSkills, fetchPods } from '../../thunk';
 import {
   COLORS,
   commonStyle as cs,
@@ -76,6 +76,7 @@ class SignupScreen extends React.Component {
 
   componentDidMount(){
     this.props.dispatchFetchPods();
+    this.props.getAllSkills();
   }
 
   onValueChange = (fieldName) => (value) => {
@@ -264,6 +265,7 @@ class SignupScreen extends React.Component {
                   error={errors.email}
                   value={email}
                   showLabel
+                  keyboardType="email-address"
                   ref={this.addInput('email')}
                   onChange={this.onValueChange('email')}
                   onSubmit={this.onSubmit('password')}
@@ -399,7 +401,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPods,
     dispatchFetchPods: () => dispatch(fetchPods()),
-    dispatchUserSignup: (data) => dispatch(userSignup(data)),
+    getAllSkills:() => dispatch(getAllSkills()),
    }
 }
 

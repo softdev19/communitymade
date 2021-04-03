@@ -32,12 +32,12 @@ class ActiveOrderDetailsScreen extends React.Component {
     this.props.navigation.goBack();
   };
 
-  onPressPDF = () => {
-
+  onPressPDF = item => {
+   this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
   }
   
-  onPressVideo = () => {
-
+  onPressVideo = item => {
+   this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsVideoLink, title: item?.name })
   }
   
   onPressCompleted = () => {
@@ -59,7 +59,7 @@ class ActiveOrderDetailsScreen extends React.Component {
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
           <Header
-            title={'Active Order Details'}
+            title={'Active Task Details'}
             onBackPress={this.goBack}
           />
         <InputScrollView
@@ -73,6 +73,7 @@ class ActiveOrderDetailsScreen extends React.Component {
           <View style={{ marginTop: 10 }}>
             <TaskCard
               data={order}
+              showClaimedQuantity
             />
           </View>
         <Spacer />
@@ -84,14 +85,14 @@ class ActiveOrderDetailsScreen extends React.Component {
           style={{ container: styles.btn }}
           text={'View Instructions PDF'}
           upperCase={false}
-          onPress={this.onPressPDF}
+          onPress={() => this.onPressPDF(order)}
         />
         <Button
           raised
           style={{ container: styles.btn }}
           text={'View Instructions Video'}
           upperCase={false}
-          onPress={this.onPressVideo}
+          onPress={() => this.onPressVideo(order)}
         />
         <Button
           raised
@@ -101,9 +102,9 @@ class ActiveOrderDetailsScreen extends React.Component {
           onPress={this.onPressCompleted}
         />
         <Spacer size="XS" />
-        <ScreenTitle title={'Questions ?  Problems ?'} />
-        <Spacer size="S" />
-        <CustomInput
+        {/* <ScreenTitle title={'Questions ?  Problems ?'} />
+        <Spacer size="S" /> */}
+        {/* <CustomInput
           _value={message}
           _onChangeText={text => this.setMessage(text)}
           multiline
@@ -111,14 +112,14 @@ class ActiveOrderDetailsScreen extends React.Component {
           styleContainer={styles.inputContainer}
           styleBlock={styles.input}
         />
-        <Spacer size="S" />
-        <Button
+        <Spacer size="S" /> */}
+        {/* <Button
           raised
           style={{ container: styles.smallBtn }}
           text={'Message paskho'}
           disabled={_.size(message) < 10}
           onPress={this.onPressMessage}
-        />
+        /> */}
         <View style={styles.footer} />
       </InputScrollView>
         </View>

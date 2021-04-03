@@ -3,3 +3,4 @@ export * from './generalDataActions';
 export * from './appFlowActions';
 export * from './workOrdersActions';
 export * from './profileActions';
+export * from './taskActions';

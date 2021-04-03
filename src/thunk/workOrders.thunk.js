@@ -29,7 +29,7 @@ export function getActiveWorkOrders(data) {
     dispatch(fetchActiveWorkOrdersRequest());
     return API.fetch({
       method: 'get',
-      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?active=${true}&podId=${data?.podId}&userId=${data?.userId}`
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?active=${true}&userId=${data?.userId}`
     })
       .then((response) => {
         __DEV__ && console.log(response);
@@ -51,7 +51,7 @@ export function getAvailableWorkOrders(data) {
     dispatch(fetchAvailableWorkOrdersRequest());
     return API.fetch({
       method: 'get',
-      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?active=${false}&podId=${data?.podId}&userId=${data?.userId}`
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}`
     })
       .then((response) => {
         __DEV__ && console.log(response);

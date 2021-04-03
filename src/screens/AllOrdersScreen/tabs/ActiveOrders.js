@@ -38,6 +38,7 @@ class ActiveOrders extends Component {
                       )
                     }
                     showButton
+                    showClaimedQuantity
                   />
                 )
               }}

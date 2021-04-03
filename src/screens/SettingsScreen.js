@@ -35,12 +35,13 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
    useEffect(() => {
     setUiBlock(true),
     getAllSkills()
-
+    console.log('allSkills', allSkills)
+    console.log('userSkills', userSkills)
     }, [])
 
   const onPressSubmit = () => {
       updateProfile({
-        userId: 2,
+        userId: user?.user?.id,
         data: {
           phone: 111111111,
           firstName: 'Faisal',
@@ -64,9 +65,8 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               <Spacer />
               {_.map(allSkills, (item, key) => {
                // const checkedIndex = _.indexOf(skills, item)
-               const checkedIndex = skills?.findIndex(skill => skill?.skillId == item?.id)
-               return 
-                 { skills ? (
+               const checkedIndex =  skills?.findIndex(skill => skill?.id == item?.id)
+               { return allSkills ? (
                   <View style={styles.checkbox} key={key}>
                     <Checkbox
                       label={item?.name}
@@ -78,18 +78,19 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
                         if (checkedIndex > -1) {
                           // remove from list
                               const newSkills = [
-                            ...skills.slice(0, checkedIndex),
-                            ...skills.slice(checkedIndex + 1)
+                            ...skills?.slice(0, checkedIndex),
+                            ...skills?.slice(checkedIndex + 1)
                           ]
                           console.log('newSkills remove', newSkills)
                           setSkills(newSkills)
                         } else {
                           // add to list
                           let newSkills = [];
-                          console.log('allSkills[item?.id - 1].id', allSkills[item?.id - 1].id)
-                          newSkills.push({skillId: allSkills[item?.id - 1].id})
+                          let index = allSkills?.findIndex(skill => skill?.id == item?.id);
+                          console.log('allSkills[item?.id - 1].id', allSkills[index].id)
+                          newSkills.push({id: allSkills[index].id})
                           console.log('newSkills add',newSkills)
-                          setSkills([...skills, ...newSkills])
+                          skills? setSkills([...skills, ...newSkills]) : setSkills([...newSkills])
                         }
                       }}
                     />
@@ -98,13 +99,13 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               })
             }
               <Spacer />
-              <Button
+              {/* <Button
                 raised
                 style={{ container: styles.btn }}
                 text={t('common:submit')}
                 disabled={_.size(skills) === 0}
                 onPress={onPressSubmit}
-              />
+              /> */}
             </>
           )}
         {activeTab === 1 && (
@@ -156,13 +157,13 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               />
 
               <Spacer />
-              <Button
+              {/* <Button
                 raised
                 style={{ container: styles.btn }}
                 text={t('common:submit')}
                 disabled={_.size(skills) === 0}
                 onPress={onPressSubmit}
-              />
+              /> */}
             </>
           )}
         </Tabs>
@@ -197,7 +198,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ auth, workOrders }) => {
   let { activeOrders, availableOrders, activeWorkOrdersFetchSuccess, availableWorkOrdersFetchSuccess, allSkills } = workOrders;
   let { user } = auth;
-  let { userSkills } = user?.user;
+  let { skills } = user?.user;
+  let userSkills = skills;
   return {
     user,
     activeOrders,

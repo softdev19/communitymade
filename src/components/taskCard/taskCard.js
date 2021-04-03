@@ -9,7 +9,7 @@ class TaskCard extends Component {
   }
 
   render() {
-    const { data, onPress, showButton } = this.props;
+    const { data, onPress, showButton, showClaimedQuantity = false } = this.props;
     return (
       <View style={[styles.authBox, cs.elevatedShadow]}>
         <View style={styles.topContainer}>
@@ -19,10 +19,18 @@ class TaskCard extends Component {
               <Text style={styles.text}>{data?.name || 'Name'}</Text>
             </View>
             <Text style={styles.durationText}> {'End Date:'} {moment(data?.endDate).format('MM-DD-YY') || '0'} </Text>
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-              <Text style={styles.bottomText}>Payment:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{`$${data?.paymentTerms} / per` || '0'}</Text>
-          </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                <Text style={styles.bottomText}>Payment:</Text>
+                <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{`$${data?.paymentTerms} / per` || '0'}</Text>
+              </View>
+              {
+                showClaimedQuantity &&  <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                <Text style={styles.bottomText}>Qty Claimed:</Text>
+                <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270'}]}>{data?.userTaskDetails?.claimedQuantity}</Text>
+              </View>
+              }
+            </View>
           </View>
           {
             showButton && <TouchableOpacity

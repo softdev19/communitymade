@@ -81,28 +81,28 @@ class OnBoardingScreen extends React.Component {
     };
   }
 
-  async componentDidUpdate(prevProps, prevState){
-    if(prevProps.auth != this.props.auth){
-      try{
-        if(this.props.auth?.user?.user?.email){
-          this.props.navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [
-                { name: 'OnboardingSkills' },
-                // {
-                //   name: 'Home',
-                //   params: { user: 'jane' },
-                // },
-              ],
-            })
-          );
-        }
-      } catch (e){
+  // async componentDidUpdate(prevProps, prevState){
+  //   if(prevProps.auth != this.props.auth){
+  //     try{
+  //       if(this.props.auth?.user?.user?.email){
+  //         this.props.navigation.dispatch(
+  //           CommonActions.reset({
+  //             index: 0,
+  //             routes: [
+  //               { name: 'OnboardingSkills' },
+  //               // {
+  //               //   name: 'Home',
+  //               //   params: { user: 'jane' },
+  //               // },
+  //             ],
+  //           })
+  //         );
+  //       }
+  //     } catch (e){
         
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 
   onValueChange = (fieldName) => (value) => {
     this.setState({
@@ -210,7 +210,7 @@ class OnBoardingScreen extends React.Component {
       },
       () => {
         if (Object.values(errors).every((value) => value == '')) {
-          this.props.dispatchUserSignup({
+          let userData = {
             email: userInfo?.email,
             password: userInfo?.password,
             firstName: userInfo?.firstName,
@@ -222,7 +222,11 @@ class OnBoardingScreen extends React.Component {
             city,
             state: mainType,
             zip
-          })
+          }
+          this.props.navigation.navigate('OnboardingSkills', { userData });
+          // this.props.dispatchUserSignup({
+   
+          // })
         }
       },
     );

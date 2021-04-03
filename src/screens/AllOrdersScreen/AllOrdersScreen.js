@@ -25,13 +25,13 @@ class AllOrdersScreen extends React.Component {
   tabsConfig = () => {
     const routes = [
       {
-        key: 'Available Orders',
-        title: 'Available Orders',
+        key: 'Active Tasks',
+        title: 'Active Tasks',
         props: this.props,
       },
       {
-        key: 'Active Orders',
-        title: 'Active Orders',
+        key: 'Available Tasks',
+        title: 'Available Tasks',
         props: this.props,
       }
     ];
@@ -61,8 +61,6 @@ class AllOrdersScreen extends React.Component {
     }
   }
 
-  // for webvew screen testing
-  // this.props.navigation.navigate('WebViewScreen', {url: 'https://www.youtube.com/watch?v=hMy5za-m5Ew&list=RDwQ8cfdBzaHI&index=6', title: 'test' })
   componentDidMount(){
     this.props.setUiBlock(true);
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
@@ -74,7 +72,7 @@ class AllOrdersScreen extends React.Component {
   
       this.props.getAvailableWorkOrders({
         podId: 1,
-        userId: 1
+        userId: user?.user?.id
       });
     });
   }
@@ -102,9 +100,9 @@ class AllOrdersScreen extends React.Component {
               navigationState={{ index: index, routes: routes }}
               renderScene={(route) => {
                 switch (route.route.key) {
-                  case 'Active Orders':
+                  case 'Active Tasks':
                     return <ActiveOrders   {...this.props} />;
-                  case 'Available Orders':
+                  case 'Available Tasks':
                     return <AvailableOrders {...this.props} />;
                   default:
                     return null;

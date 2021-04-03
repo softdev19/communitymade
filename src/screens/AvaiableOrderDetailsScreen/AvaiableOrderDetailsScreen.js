@@ -20,6 +20,8 @@ import Spacer from '../../components/atoms/Spacer'
 import CustomInput from '../../components/organisms/CustomInput'
 import ClaimQuantity from '../../components/organisms/ClaimQuantity'
 import OrderNewDetailsItem from '../../components/organisms/OrderNewDetailsItem'
+import { createTask } from '../../thunk';
+import { setUiBlock } from '../../actions';
 
 let item = { name: "Serene Black Women's Pant", end_date: "04-01-2021", claimed: "10", completed: "2", payment: "15" };
 
@@ -35,12 +37,12 @@ class AvaiableOrderDetailsScreen extends React.Component {
     this.props.navigation.goBack();
   };
 
-  onPressPDF = () => {
-
-  }
-  
-  onPressVideo = () => {
-
+  onPressPDF = item => {
+    this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
+   }
+   
+  onPressVideo = item => {
+  this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsVideoLink, title: item?.name })
   }
   
   onPressCompleted = () => {
@@ -52,7 +54,13 @@ class AvaiableOrderDetailsScreen extends React.Component {
   }
 
   onPressClaim = (order, quantity ) => {
-    this.props.navigation.navigate('OrderSuccess', { order, quantity })
+   // this.props.navigation.navigate('OrderSuccess', { order, quantity })
+   // this.props.setUiBlock(true);
+   this.props.createTask({
+    userId: this.props?.user?.id,
+    workOrderId: order?.id,
+    claimedQuantity: parseInt(quantity)
+   })
   }
 
   setQuantity = quantity => {
@@ -66,7 +74,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
           <Header
-            title={'Avaialable Order Details'}
+            title={'Avaialable Task Details'}
             onBackPress={this.goBack}
           />
         <InputScrollView
@@ -93,7 +101,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
           style={{ container: styles.btn }}
           text={'View Instructions PDF'}
           upperCase={false}
-          onPress={this.onPressPDF}
+          onPress={() => this.onPressPDF(order)}
         />
         <Button
           raised
@@ -101,7 +109,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
           style={{ container: styles.btn }}
           text={'View Instructions Video'}
           upperCase={false}
-          onPress={this.onPressVideo}
+          onPress={() => this.onPressVideo(order)}
         />
         <Spacer />
         <ClaimQuantity
@@ -120,14 +128,16 @@ class AvaiableOrderDetailsScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  const { user } = auth?.user;
   return {
-    auth
+    user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      
+    setUiBlock: (value) => dispatch(setUiBlock(value)),
+    createTask: (data) => dispatch(createTask(data)),
    }
 }
 
