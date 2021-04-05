@@ -22,10 +22,8 @@ import {
   images,
 } from '../../common';
 import { userLogin } from '../../thunk';
-import { setUiBlock } from '../../actions';
 import Button from '../../components/button';
 import InputBox from '../../components/inputBox';
-import { DropDownHolder } from '../../components';
 import platform from '../../helpers/platform'
 import style from './styles';
 
@@ -63,11 +61,7 @@ class SigninScreen extends React.Component {
             CommonActions.reset({
               index: 0,
               routes: [
-                { name: 'Home' },
-                // {
-                //   name: 'Home',
-                //   params: { user: 'jane' },
-                // },
+                { name: 'Home' }
               ],
             })
           );
@@ -76,10 +70,6 @@ class SigninScreen extends React.Component {
         
       }
     }
-  }
-
-  componentDidMount(){
-  //  this.props.dispatchUserLogin({ email : "richard@mail.com", password: "password" });
   }
 
   onValueChange = (fieldName) => (value) => {

@@ -11,7 +11,6 @@ import CompanyTitle from '../components/molecules/CompanyTitle'
 import ScreenTitle from '../components/molecules/ScreenTitle'
 
 import { setUiBlock } from '../actions/appFlowActions'
-import { dataSkills } from '../constants/types'
 import { userSignup } from '../thunk';
 import ShowError from '../helpers/ShowError';
 

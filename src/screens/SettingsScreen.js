@@ -6,7 +6,6 @@ import platform from '../helpers/platform'
 import _ from 'lodash'
 import { Button, Checkbox } from 'react-native-material-ui'
 import InputScrollView from 'react-native-input-scroll-view'
-import { useDispatch } from 'react-redux'
 
 import CustomInput from '../components/organisms/CustomInput'
 import CompanyTitle from '../components/molecules/CompanyTitle'
@@ -15,8 +14,6 @@ import Spacer from '../components/atoms/Spacer'
 import Tabs from '../components/organisms/Tabs'
 import { getAllSkills, getSkillsById, updateProfile } from '../thunk';
 import { setUiBlock } from '../actions';
-
-import { dataSkills } from '../constants/types'
 
 function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, user, allSkills, userSkills }) {
   const { t } = useTranslation(['settings', 'common'])
