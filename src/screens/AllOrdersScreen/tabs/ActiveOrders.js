@@ -9,10 +9,6 @@ import styles from '../styles';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { TaskCard } from '../../../components';
 
-const dataActive = [
-  { name: "Serene Black Women's Pant", end_date: "04-01-2021", claimed: "10", completed: "2", payment: "15" }
-]
-
 class ActiveOrders extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +28,7 @@ class ActiveOrders extends Component {
                   <TaskCard
                     data={item}
                     onPress={() =>
-                    this.props.navigation.navigate(
-                      item.remaining ? 'OrderNewDetails' : 'OrderDetails',
-                      { order: item }
-                      )
+                    this.props.navigation.navigate('OrderDetails',{ order: item })
                     }
                     showButton
                     showClaimedQuantity

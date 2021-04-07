@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import platform from '../helpers/platform'
+import { Header } from '../components';
 import _ from 'lodash'
 import moment from 'moment'
 import { Button } from 'react-native-material-ui'
@@ -17,21 +18,28 @@ function OrderSuccessScreen({ navigation, route }) {
   const { order, quantity } = route.params
   const { t } = useTranslation(['order-success', 'common'])
   const onPressStart = () => {
-
+    navigation.replace('OrderDetails',{ order })
   }
   const onPressCancel = () => {
     navigation.goBack()
   }
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.header} />
-      <CompanyTitle />
+      {/* <View style={styles.header} /> */}
+      <Header
+        title={'Success !'}
+        onBackPress={goBack}
+      />
+      {/* <CompanyTitle /> */}
       <InputScrollView
         keyboardOffset={platform.topSpace ? platform.topSpace + 20 : 40}
         keyboardShouldPersistTaps="always"
       >
         <Spacer />
-        <ScreenTitle title={t('success')} />
+        {/* <ScreenTitle title={t('success')} /> */}
 
         <Spacer size="XS" />
         <Text style={styles.text}>{t('thank you')}</Text>
@@ -55,7 +63,7 @@ function OrderSuccessScreen({ navigation, route }) {
           onPress={onPressStart}
         />
 
-        <Spacer />
+        {/* <Spacer />
         <ScreenTitle title={t('didnt sign up')} />
         <Spacer size="S" />
         <Button
@@ -64,7 +72,7 @@ function OrderSuccessScreen({ navigation, route }) {
           style={{ container: styles.btn }}
           text={t('common:cancel')}
           onPress={onPressCancel}
-        />
+        /> */}
 
         <View style={styles.footer} />
       </InputScrollView>

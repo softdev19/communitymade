@@ -33,7 +33,7 @@ class ActiveOrderDetailsScreen extends React.Component {
   };
 
   onPressPDF = item => {
-   this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
+    this.props.navigation.navigate('PDFViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
   }
   
   onPressVideo = item => {

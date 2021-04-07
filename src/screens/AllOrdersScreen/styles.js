@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabLabelContainer: {
-    width: fullWidth / 2,
+    width: fullWidth / 3,
     height: 52,
     marginTop: -3,
     justifyContent: 'center',
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     color: COLORS.PRIMARY_BLUE,
 //     fontFamily: 'Poppins',
     fontWeight: '600',
-    fontSize: scaledFontSize(16),
+    fontSize: scaledFontSize(9),
   },
   tab: {
-    width: fullWidth / 2,
+    width: fullWidth / 3,
     height: 57,
     borderTopColor: COLORS.PLACE_HOLDER,
     borderTopWidth: 0.2,

@@ -12,6 +12,7 @@ import './src/helpers/i18n'
 import rootReducer from './src/rootReducer'
 import platform from './src/helpers/platform'
 import { DropDownHolder } from './src/components';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, {}, composeEnhancer(applyMiddleware(Thunk)));
@@ -24,6 +25,7 @@ const App: () => React$Node = () => {
   return (
     <>
       <Provider store={store}>
+      <MenuProvider>
         <StatusBar
           backgroundColor={platform.statusBarColor}
           barStyle="dark-content"
@@ -31,6 +33,7 @@ const App: () => React$Node = () => {
         <FullScreenBlockSpinner>
           <AppContainer />
         </FullScreenBlockSpinner>
+        </MenuProvider>
       </Provider>
       <DropdownAlert ref={(ref) => DropDownHolder.setDropDown(ref)}/>
       <ToastCustom />

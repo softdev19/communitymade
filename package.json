@@ -42,6 +42,7 @@
     "react-native-tab-view": "^3.0.0",
     "react-native-toast-message": "^1.4.7",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-view-pdf": "^0.11.0",
     "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",

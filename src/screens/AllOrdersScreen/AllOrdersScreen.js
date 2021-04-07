@@ -5,12 +5,13 @@ import { ImageBackground, View, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import { images } from '../../common';
 import COLORS from '../../common/colors';
-import { commonStyle as cs, fullWidth, scaledFontSize } from '../../common/styles';
+import { commonStyle as cs, fullWidth, scaledFontSize, GetOptimalWidth } from '../../common/styles';
 import { Header } from '../../components';
 import styles from './styles';
 import { connect } from 'react-redux'
 import ActiveOrders from './tabs/ActiveOrders';
 import AvailableOrders from './tabs/AvailableOrders';
+import WaitingReviewOrders from './tabs/WaitingReviewOrders';
 import { getActiveWorkOrders, getAvailableWorkOrders, getAllSkills, getSkillsById } from '../../thunk';
 import { setUiBlock } from '../../actions';
 
@@ -33,6 +34,11 @@ class AllOrdersScreen extends React.Component {
         key: 'Available Tasks',
         title: 'Available Tasks',
         props: this.props,
+      },
+      {
+        key: 'Waiting Review Tasks',
+        title: 'Waiting for Review',
+        props: this.props,
       }
     ];
 
@@ -54,10 +60,18 @@ class AllOrdersScreen extends React.Component {
       try{
         if(this.props.availableWorkOrdersFetchSuccess || this.props.activeWorkOrdersFetchSuccess){
           this.props.setUiBlock(false);
+          this.selectTab();
         }
       } catch (e){
         
       }
+    }
+  }
+
+  selectTab = () => {
+    let { activeOrders } = this.props;
+    if(activeOrders?.length == 0){
+      this.setState({ index: 1 })
     }
   }
 
@@ -104,10 +118,12 @@ class AllOrdersScreen extends React.Component {
                     return <ActiveOrders   {...this.props} />;
                   case 'Available Tasks':
                     return <AvailableOrders {...this.props} />;
+                  case 'Waiting Review Tasks':
+                    return <WaitingReviewOrders {...this.props} />;
                   default:
                     return null;
                 }
-              }}
+              }}  
               initialLayout={{ width: fullWidth }}
               removeClippedSubViews={true}
               onIndexChange={(index) => {
@@ -120,8 +136,8 @@ class AllOrdersScreen extends React.Component {
                     backgroundColor: COLORS.WHITE,
                     borderBottomWidth: 3,
                     borderColor: COLORS.PRIMARY_LIGHT_BLUE,
-                    width: 150,
-                    marginHorizontal: 30,
+                    width: GetOptimalWidth(90),
+                    marginHorizontal: 20,
                   }}
                   renderLabel={({ route, focused, color }) => (
                     <Text style={{ color: COLORS.PRIMARY_BLUE, fontSize: scaledFontSize(12) }}>{route.title}</Text>

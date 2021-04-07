@@ -11,6 +11,7 @@ import SignupScreen from '../screens/SignupScreen'
 import SigninScreen from '../screens/SigninScreen'
 import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
 import WebViewScreen from '../screens/WebViewScreen'
+import PDFViewScreen from '../screens/PDFViewScreen';
 
 import { StackStyle } from './themes'
 import TabsStack from './TabsStack'
@@ -61,6 +62,11 @@ function MainStack({ initialRouteName }) {
       <Stack.Screen
         name="WebViewScreen"
         component={WebViewScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PDFViewScreen"
+        component={PDFViewScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -312,6 +312,8 @@ PODS:
     - React-Core
   - RNGestureHandler (1.10.2):
     - React-Core
+  - RNPDF (0.11.0):
+    - React
   - RNReanimated (1.13.2):
     - React-Core
   - RNScreens (2.17.1):
@@ -377,6 +379,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPDF (from `../node_modules/react-native-view-pdf`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -464,6 +467,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPDF:
+    :path: "../node_modules/react-native-view-pdf"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -518,6 +523,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPicker: 6780c753e9e674065db90d9c965920516402579d
   RNGestureHandler: e66feb0fda7da74ea6a3094656b3c1efe05f5c07
+  RNPDF: b575ff11a65121f346b2851e3da736e7c51c18ab
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4

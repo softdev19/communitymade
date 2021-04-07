@@ -38,7 +38,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
   };
 
   onPressPDF = item => {
-    this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
+    this.props.navigation.navigate('PDFViewScreen', {url: item?.instructionsPdfLink, title: item?.name })
    }
    
   onPressVideo = item => {
@@ -55,12 +55,12 @@ class AvaiableOrderDetailsScreen extends React.Component {
 
   onPressClaim = (order, quantity ) => {
    // this.props.navigation.navigate('OrderSuccess', { order, quantity })
-   // this.props.setUiBlock(true);
+
    this.props.createTask({
     userId: this.props?.user?.id,
     workOrderId: order?.id,
     claimedQuantity: parseInt(quantity)
-   })
+   }, order)
   }
 
   setQuantity = quantity => {
@@ -137,7 +137,7 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUiBlock: (value) => dispatch(setUiBlock(value)),
-    createTask: (data) => dispatch(createTask(data)),
+    createTask: (data, taskDetails) => dispatch(createTask(data, taskDetails)),
    }
 }
 

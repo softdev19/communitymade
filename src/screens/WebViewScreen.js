@@ -137,19 +137,19 @@ class WebViewScreen extends Component {
                     <View style={styles.dividerLineStyle} />
 
                       <MenuOption onSelect={() => this.onRefreshOptionClicked()}>
-                          <Text style={styles.menuOptionsStyle}>{'refresh'}</Text>
+                          <Text style={styles.menuOptionsStyle}>{'Refresh'}</Text>
                       </MenuOption>
 
                       <View style={styles.dividerLineStyle} />
 
                       <MenuOption onSelect={() => this.onOpenInChromeOptionClicked()}>
-                          <Text style={styles.menuOptionsStyle}>{'openInchrome'}</Text>
+                          <Text style={styles.menuOptionsStyle}>{'Open In Chrome'}</Text>
                       </MenuOption>
 
                       <View style={styles.dividerLineStyle} />
 
                       <MenuOption onSelect={() => this.onCopyLinkOptionClicked()}>
-                          <Text style={styles.menuOptionsStyle}>{'copyLink'}</Text>
+                          <Text style={styles.menuOptionsStyle}>{'Copy Link'}</Text>
                       </MenuOption>
 
                       <View style={styles.dividerLineStyle} />
