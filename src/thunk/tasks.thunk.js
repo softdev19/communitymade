@@ -2,6 +2,9 @@ import {
   createTaskRequest,
   createTaskSuccess,
   createTaskError,
+  updateTaskRequest,
+  updateTaskSuccess,
+  updateTaskError,
   setUiBlock
 } from '../actions';
 
@@ -26,13 +29,40 @@ export function createTask(data, taskDetails) {
         dispatch(createTaskSuccess(response?.data));
         dispatch(setUiBlock(false))
         ShowSuccess('New task created successfully !');
-        replace('OrderSuccess', { order: taskDetails, quantity: data?.claimedQuantity });
+        navigate('OrderSuccess', { order: taskDetails, quantity: data?.claimedQuantity });
         return response;
       })
       .catch((error) => {
          __DEV__ && console.log(error);
         dispatch(setUiBlock(false))
         dispatch(createTaskError());
+        ShowError(error);
+        throw error;
+      })
+  }
+}
+
+export function updateTask(data) {
+  return function(dispatch) {
+    dispatch(updateTaskRequest());
+
+    return API.fetch({
+      method: 'patch',
+      url: `${SERVER_URL}${END_POINTS.TASKS}/${data?.taskId}`,
+      data: data,
+      authorized: true,
+    })
+      .then((response) => {
+        __DEV__ && console.log(response);
+        dispatch(updateTaskSuccess(response?.data));
+        dispatch(setUiBlock(false))
+        ShowSuccess('Task updated successfully !');
+        return response;
+      })
+      .catch((error) => {
+         __DEV__ && console.log(error);
+        dispatch(setUiBlock(false))
+        dispatch(updateTaskError());
         ShowError(error);
         throw error;
       })

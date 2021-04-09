@@ -18,7 +18,7 @@ import { setUiBlock } from '../actions';
 function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, user, allSkills, userSkills }) {
   const { t } = useTranslation(['settings', 'common'])
   const [activeTab, setActiveTab] = useState(0)
-  const [skills, setSkills] = useState(userSkills)
+  const [skills, setSkills] = useState([])
   const [firstAddress, setFirstAddress] = useState(user?.user?.address1)
   const [secondAddress, setSecondAddress] = useState(user?.user?.address2)
   const [city, setCity] = useState(user?.user?.city)
@@ -29,23 +29,51 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
     console.log('skills', skills)
   }
 
-   useEffect(() => {
-    setUiBlock(true),
-    getAllSkills()
-    console.log('allSkills', allSkills)
-    console.log('userSkills', userSkills)
-    }, [])
+  //  useEffect(() => {
+  //   setUiBlock(true),
+  //   getAllSkills()
+  //   console.log('allSkills', allSkills)
+  //   console.log('userSkills', userSkills)
+  //   }, [])
 
-  const onPressSubmit = () => {
+    useEffect(() => {
+      let _unsubscribe = navigation.addListener('focus', () => {
+        getAllSkills()
+        setSkills(userSkills)
+      })
+      // Specify how to clean up after this effect:
+      return function cleanup() {
+        _unsubscribe();
+      };
+    })
+
+  const onPressSubmitSkills = () => {
+      let selectedSkills = [];
+      skills.map(skill => {
+        selectedSkills.push(skill?.id)
+      })
+      console.log('selectedSkills',selectedSkills);
       updateProfile({
         userId: user?.user?.id,
         data: {
-          phone: 111111111,
-          firstName: 'Faisal',
-          skills: [1,2]
+          skills: selectedSkills
         }
       })
     }
+
+  const onPressSubmitAddress = () => {
+    updateProfile({
+      userId: user?.user?.id,
+      data: {
+        address1: firstAddress,
+        address2: secondAddress,
+        city,
+        state,
+        zip,
+        phone
+      }
+    })
+  }
   
   return (
     <View style={styles.container}>
@@ -96,13 +124,13 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               })
             }
               <Spacer />
-              {/* <Button
+              <Button
                 raised
                 style={{ container: styles.btn }}
                 text={t('common:submit')}
                 disabled={_.size(skills) === 0}
-                onPress={onPressSubmit}
-              /> */}
+                onPress={onPressSubmitSkills}
+              />
             </>
           )}
         {activeTab === 1 && (
@@ -154,13 +182,13 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               />
 
               <Spacer />
-              {/* <Button
+              <Button
                 raised
                 style={{ container: styles.btn }}
                 text={t('common:submit')}
                 disabled={_.size(skills) === 0}
-                onPress={onPressSubmit}
-              /> */}
+                onPress={onPressSubmitAddress}
+              />
             </>
           )}
         </Tabs>
@@ -207,11 +235,6 @@ const mapStateToProps = ({ auth, workOrders }) => {
     userSkills
   }
 }
-
-// const mapDispatchToProps = {
-//   getAllSkills,
-//   setUiBlock
-// }
 
 const mapDispatchToProps = (dispatch) => {
   return {

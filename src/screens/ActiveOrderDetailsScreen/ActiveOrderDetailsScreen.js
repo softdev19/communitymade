@@ -5,26 +5,28 @@ import { ImageBackground, View, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import { images } from '../../common';
 import COLORS from '../../common/colors';
-import { commonStyle as cs, fullWidth, scaledFontSize } from '../../common/styles';
+import { commonStyle as cs, fullWidth, scaledFontSize, GetOptimalWidth } from '../../common/styles';
 import { Header, TaskCard } from '../../components';
 import platform from '../../helpers/platform'
 import { Button } from 'react-native-material-ui'
 import styles from './styles';
 import { connect } from 'react-redux'
+import { updateTask } from '../../thunk';
 import _ from 'lodash'
 import InputScrollView from 'react-native-input-scroll-view'
+import Slider from "react-native-slider";
 import ScreenTitle from '../../components/molecules/ScreenTitle'
 import OrderItem from '../../components/organisms/OrderItem'
 import Spacer from '../../components/atoms/Spacer'
 import CustomInput from '../../components/organisms/CustomInput'
 
-let item = { name: "Serene Black Women's Pant", end_date: "04-01-2021", claimed: "10", completed: "2", payment: "15" };
 
 class ActiveOrderDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      message: ''
+      message: '',
+      taskCount:1,
     }
   }
 
@@ -43,6 +45,15 @@ class ActiveOrderDetailsScreen extends React.Component {
   onPressCompleted = () => {
 
   }
+
+  onPressUpdateCompletedQty = () => {
+    let { order } = this.props.route.params;
+    this.props.updateTask({
+      taskId: order?.id,
+      userId: this.props.user?.id,
+      claimedQuantity: this.state?.taskCount,
+    })
+  }
   
   onPressMessage = () => {
 
@@ -54,7 +65,7 @@ class ActiveOrderDetailsScreen extends React.Component {
 
   render() {
     let { order } = this.props.route.params;
-    let { message } = this.state;
+    let { message, taskCount } = this.state;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
@@ -120,6 +131,35 @@ class ActiveOrderDetailsScreen extends React.Component {
           disabled={_.size(message) < 10}
           onPress={this.onPressMessage}
         /> */}
+        <View style={{
+            flex: 1,
+            marginHorizontal: GetOptimalWidth(50),
+            alignItems: "stretch",
+            justifyContent: "center"
+          }}>
+          <Slider
+            value={taskCount}
+            minimumValue={0}
+            maximumValue={order?.userTaskDetails?.claimedQuantity}
+            step={1}
+            thumbTintColor={'#343434'}
+            maximumTrackTintColor={'#b3b3b3'}
+            thumbTouchSize={{width: 40, height: 40}}
+            onValueChange={value => this.setState({ taskCount: value })}
+          />
+          <Text>
+            Items: {taskCount}
+          </Text>
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Button
+            raised
+            style={{ container: styles.btn }}
+            text={'Update Completed Quantity'}
+            upperCase={false}
+            onPress={this.onPressUpdateCompletedQty}
+          />
+        </View>
         <View style={styles.footer} />
       </InputScrollView>
         </View>
@@ -129,14 +169,15 @@ class ActiveOrderDetailsScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth }) => {
+  let { user } = auth?.user;
   return {
-    auth
+    user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      
+    updateTask: (data) => dispatch(updateTask(data)),
    }
 }
 

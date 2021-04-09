@@ -53,6 +53,10 @@ class SigninScreen extends React.Component {
     };
   }
 
+  componentDidMount(){
+    this.props.dispatchUserLogin({ email: "example24@mail.com", password: "password" })
+  }
+
   async componentDidUpdate(prevProps, prevState){
     if(prevProps.auth != this.props.auth){
       try{

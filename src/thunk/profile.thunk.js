@@ -23,8 +23,10 @@ export function updateProfile(data) {
     })
       .then((response) => {
         __DEV__ && console.log(response);
+        // dispatch(updateUserInfo(response?.data));
         dispatch(updateUserProfileSuccess(response?.data));
         dispatch(setUiBlock(false))
+        ShowSuccess('Success !')
         return response;
       })
       .catch((error) => {
