@@ -24,7 +24,11 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
   const [city, setCity] = useState(user?.user?.city)
   const [state, setState] = useState(user?.user?.state)
   const [zip, setZip] = useState(user?.user?.zip)
-  const [phone, setPhone] = useState(user?.user?.phone)
+  const [phone, setPhone] = useState(user?.user?.phone || '')
+  const [bankName, setBankName] = useState(user?.user?.bankName || '')
+  const [accountNo, setAccountNo] = useState(user?.user?.accountNo || '')
+  const [swiftCode, setSwiftCode] = useState(user?.user?.swiftCode || '')
+  const [bankBranchName, setBankBranchName] = useState(user?.user?.bankBranchName || '')
   const onPressContinueSkills = () => {
     console.log('skills', skills)
   }
@@ -73,6 +77,18 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
         phone
       }
     })
+  }
+
+  const onPressSubmitBankDetails = () => {
+    // updateProfile({
+    //   userId: user?.user?.id,
+    //   data: {
+    //     bankName,
+    //     accountNo,
+    //     swiftCode,
+    //     bankBranchName
+    //   }
+    // })
   }
   
   return (
@@ -191,6 +207,49 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
               />
             </>
           )}
+        {activeTab === 2 && (
+          <>
+            <Spacer />
+            {/* <ScreenTitle title={'Bank Details'} /> */}
+            {/* <Spacer />
+            
+            <CustomInput
+              _value={bankName}
+              title={'Bank Name'}
+              _onChangeText={text => setBankName(text)}
+              styleContainer={{ justifyContent: 'space-around' }}
+            />
+            <Spacer />
+            <CustomInput
+              _value={accountNo}
+              title={'IBAN / Account No.'}
+              _onChangeText={text => setAccountNo(text)}
+              styleContainer={{ justifyContent: 'space-around' }}
+            />
+            <Spacer /> 
+            <CustomInput
+              _value={swiftCode}
+              title={'SWIFT CODE'}
+              _onChangeText={text => setSwiftCode(text)}
+              styleContainer={{ justifyContent: 'space-around' }}
+            />
+            <Spacer />
+            <CustomInput
+              _value={bankBranchName}
+              title={'Bank Branch'}
+              _onChangeText={text => setBankBranchName(text)}
+              styleContainer={{ justifyContent: 'space-around' }}
+            /> */}
+
+            <Spacer />
+            <Button
+              raised
+              style={{ container: styles.updateBankBtn }}
+              text={'Update Bank Details'}
+              onPress={onPressSubmitBankDetails}
+            />
+          </>
+          )}
         </Tabs>
         <View style={styles.footer} />
       </InputScrollView>
@@ -210,11 +269,16 @@ const styles = StyleSheet.create({
     height: 30,
     alignSelf: 'center'
   },
+  updateBankBtn: {
+    width: 200,
+    height: 30,
+    alignSelf: 'center'
+  },
   checkbox: {
     width: '100%',
     height: 40,
     alignSelf: 'center'
-  },
+  },  
   footer: {
     height: 100
   }
