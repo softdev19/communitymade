@@ -3,6 +3,7 @@ import * as actionTypes from '../constants/actionTypes'
 const _initialState = {
   activeOrders: [],
   availableOrders: [],
+  waitingForReviewOrders: [],
   allSkills: [],
   fetchedSkillDetails: {}
 }
@@ -43,6 +44,25 @@ export default function reducer(state = _initialState, { payload, type }) {
         ...state,
         availableWorkOrdersFetchSuccess: true,
         availableOrders: payload
+      }
+
+    case actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_REQUEST:
+      return {
+        ...state,
+        waitingForReviewOrdersSuccess: false,
+      }
+
+    case actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_SUCCESS:
+      return {
+        ...state,
+        waitingForReviewOrdersSuccess: true,
+        waitingForReviewOrders: payload
+      }
+
+    case actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_ERROR:
+      return {
+        ...state,
+        waitingForReviewOrdersSuccess: false
       }
     
     case actionTypes.FETCH_ALL_SKILLS_SUCCESS:

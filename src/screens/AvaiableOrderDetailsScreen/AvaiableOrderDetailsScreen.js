@@ -60,7 +60,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
     userId: this.props?.user?.id,
     workOrderId: order?.id,
     claimedQuantity: parseInt(quantity)
-   }, order)
+   }, order, this.props.navigation)
   }
 
   setQuantity = quantity => {
@@ -137,7 +137,7 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setUiBlock: (value) => dispatch(setUiBlock(value)),
-    createTask: (data, taskDetails) => dispatch(createTask(data, taskDetails)),
+    createTask: (data, taskDetails, navigation) => dispatch(createTask(data, taskDetails, navigation)),
    }
 }
 

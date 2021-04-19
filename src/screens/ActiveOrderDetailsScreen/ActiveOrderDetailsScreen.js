@@ -49,9 +49,9 @@ class ActiveOrderDetailsScreen extends React.Component {
   onPressUpdateCompletedQty = () => {
     let { order } = this.props.route.params;
     this.props.updateTask({
-      taskId: order?.id,
+      taskId: order?.userTaskDetails?.taskId,
       userId: this.props.user?.id,
-      claimedQuantity: this.state?.taskCount,
+      completedQuantity: this.state?.taskCount,
     })
   }
   
@@ -65,6 +65,7 @@ class ActiveOrderDetailsScreen extends React.Component {
 
   render() {
     let { order } = this.props.route.params;
+    console.log('active work order', order);
     let { message, taskCount } = this.state;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
@@ -140,7 +141,7 @@ class ActiveOrderDetailsScreen extends React.Component {
           <Slider
             value={taskCount}
             minimumValue={0}
-            maximumValue={order?.userTaskDetails?.claimedQuantity}
+            maximumValue={order?.userTaskDetails?.claimedQuantity} // issue when you instantly navigate here after activating task, it does not contain userTaskDetails
             step={1}
             thumbTintColor={'#343434'}
             maximumTrackTintColor={'#b3b3b3'}

@@ -38,6 +38,25 @@ export function fetchAvailableWorkOrdersError() {
   }
 }
 
+export function fetchWaitingReviewWorkOrdersRequest() {
+  return {
+    type: actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_REQUEST,
+  }
+}
+
+export function fetchWaitingReviewWorkOrdersSuccess(data) {
+  return {
+    type: actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_SUCCESS,
+    payload: data
+  }
+}
+
+export function fetchWaitingReviewWorkOrdersError() {
+  return {
+    type: actionTypes.FETCH_WAITING_FOR_REVIEW_WORK_ORDERS_ERROR,
+  }
+}
+
 export function fetchAllSkillsRequest() {
   return {
     type: actionTypes.FETCH_ALL_SKILLS_REQUEST,

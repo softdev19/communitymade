@@ -19,7 +19,7 @@ class ActiveOrders extends Component {
     return (
       <>
         <View style={styles.scrollView}>
-          {activeOrders.length > 0 ? (
+          {activeOrders?.length > 0 ? (
             <FlatList
               data={activeOrders}
               keyExtractor={(item) => item._id}

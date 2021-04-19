@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import platform from '../helpers/platform'
+import { CommonActions } from '@react-navigation/native';
 import { Header } from '../components';
 import _ from 'lodash'
 import moment from 'moment'
@@ -18,7 +19,14 @@ function OrderSuccessScreen({ navigation, route }) {
   const { order, quantity } = route.params
   const { t } = useTranslation(['order-success', 'common'])
   const onPressStart = () => {
-    navigation.replace('OrderDetails',{ order })
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          { name: 'Home' }
+        ],
+      })
+    );
   }
   const onPressCancel = () => {
     navigation.goBack()

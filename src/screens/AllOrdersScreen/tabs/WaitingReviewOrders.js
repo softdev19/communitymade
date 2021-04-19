@@ -12,13 +12,13 @@ class AvailableOrders extends Component {
   }
 
   render() {
-    let { availableOrders } = this.props;
+    let { waitingForReviewOrders } = this.props;
     return (
       <>
         <View style={styles.scrollView}>
-          {availableOrders.length > 0 ? (
+          {waitingForReviewOrders?.length > 0 ? (
             <FlatList
-              data={availableOrders}
+              data={waitingForReviewOrders}
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => {
                 return (

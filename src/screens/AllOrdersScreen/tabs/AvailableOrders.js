@@ -16,7 +16,7 @@ class AvailableOrders extends Component {
     return (
       <>
         <View style={styles.scrollView}>
-          {availableOrders.length > 0 ? (
+          {availableOrders?.length > 0 ? (
             <FlatList
               data={availableOrders}
               keyExtractor={(item) => item._id}

@@ -12,7 +12,13 @@ import { connect } from 'react-redux'
 import ActiveOrders from './tabs/ActiveOrders';
 import AvailableOrders from './tabs/AvailableOrders';
 import WaitingReviewOrders from './tabs/WaitingReviewOrders';
-import { getActiveWorkOrders, getAvailableWorkOrders, getAllSkills, getSkillsById } from '../../thunk';
+import { 
+    getActiveWorkOrders,
+    getAvailableWorkOrders, 
+    getAllSkills, 
+    getSkillsById,
+    getWaitingReviewWorkOrders
+   } from '../../thunk';
 import { setUiBlock } from '../../actions';
 
 class AllOrdersScreen extends React.Component {
@@ -51,10 +57,6 @@ class AllOrdersScreen extends React.Component {
     this.props.navigation.goBack();
   };
 
-  editProfile = () => {
-    this.props.navigation.navigate('ConsultantEditProfile');
-  };
-
   async componentDidUpdate(prevProps, prevState){
     if((prevProps.availableWorkOrdersFetchSuccess != this.props.availableWorkOrdersFetchSuccess) || (prevProps.activeWorkOrdersFetchSuccess != this.props.activeWorkOrdersFetchSuccess)){
       try{
@@ -85,7 +87,11 @@ class AllOrdersScreen extends React.Component {
       });
   
       this.props.getAvailableWorkOrders({
-        podId: 1,
+        podId: user?.user?.podId,
+        userId: user?.user?.id
+      });
+
+      this.props.getWaitingReviewWorkOrders({
         userId: user?.user?.id
       });
     });
@@ -184,6 +190,7 @@ const mapDispatchToProps = (dispatch) => {
     getSkillsById:(id) => dispatch(getSkillsById(id)),
     getActiveWorkOrders: (data) => dispatch(getActiveWorkOrders(data)),
     getAvailableWorkOrders: (data) => dispatch(getAvailableWorkOrders(data)),
+    getWaitingReviewWorkOrders: (data) => dispatch(getWaitingReviewWorkOrders(data)),
    }
 }
 

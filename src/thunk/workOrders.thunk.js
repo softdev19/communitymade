@@ -7,6 +7,10 @@ import {
   fetchAvailableWorkOrdersSuccess,
   fetchAvailableWorkOrdersError,
 
+  fetchWaitingReviewWorkOrdersRequest,
+  fetchWaitingReviewWorkOrdersSuccess,
+  fetchWaitingReviewWorkOrdersError,
+
   fetchAllSkillsRequest,
   fetchAllSkillsSuccess,
   fetchAllSkillsError,
@@ -29,7 +33,7 @@ export function getActiveWorkOrders(data) {
     dispatch(fetchActiveWorkOrdersRequest());
     return API.fetch({
       method: 'get',
-      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?active=${true}&userId=${data?.userId}`
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}&status=active`
     })
       .then((response) => {
         __DEV__ && console.log(response);
@@ -51,7 +55,7 @@ export function getAvailableWorkOrders(data) {
     dispatch(fetchAvailableWorkOrdersRequest());
     return API.fetch({
       method: 'get',
-      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}`
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}&status=available`
     })
       .then((response) => {
         __DEV__ && console.log(response);
@@ -62,6 +66,27 @@ export function getAvailableWorkOrders(data) {
          __DEV__ && console.log(error);
         dispatch(fetchAvailableWorkOrdersError());
         dispatch(setUiBlock(false));
+        ShowError(error);
+        throw error;
+      })
+  }
+}
+
+export function getWaitingReviewWorkOrders(data) {
+  return function(dispatch) {
+    dispatch(fetchWaitingReviewWorkOrdersRequest());
+    return API.fetch({
+      method: 'get',
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}&status=review`
+    })
+      .then((response) => {
+        __DEV__ && console.log(response);
+        dispatch(fetchWaitingReviewWorkOrdersSuccess(response?.data));
+        return response;
+      })
+      .catch((error) => {
+         __DEV__ && console.log(error);
+        dispatch(fetchWaitingReviewWorkOrdersError());
         ShowError(error);
         throw error;
       })

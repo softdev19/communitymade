@@ -14,7 +14,7 @@ import ShowError from '../helpers/ShowError';
 import ShowSuccess from '../helpers/ShowSuccess';
 import ShowErrorWithoutParsing from '../helpers/ShowErrorWithoutParsing';
 
-export function createTask(data, taskDetails) {
+export function createTask(data, taskDetails, navigation) {
   return function(dispatch) {
     dispatch(createTaskRequest());
 
@@ -29,7 +29,7 @@ export function createTask(data, taskDetails) {
         dispatch(createTaskSuccess(response?.data));
         dispatch(setUiBlock(false))
         ShowSuccess('New task created successfully !');
-        navigate('OrderSuccess', { order: taskDetails, quantity: data?.claimedQuantity });
+        navigation?.navigate('OrderSuccess', { order: taskDetails, quantity: data?.claimedQuantity });
         return response;
       })
       .catch((error) => {
@@ -45,7 +45,7 @@ export function createTask(data, taskDetails) {
 export function updateTask(data) {
   return function(dispatch) {
     dispatch(updateTaskRequest());
-
+    
     return API.fetch({
       method: 'patch',
       url: `${SERVER_URL}${END_POINTS.TASKS}/${data?.taskId}`,
