@@ -172,12 +172,13 @@ class AllOrdersScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth, workOrders }) => {
-  let { activeOrders, availableOrders, activeWorkOrdersFetchSuccess, availableWorkOrdersFetchSuccess } = workOrders;
+  let { activeOrders, availableOrders, activeWorkOrdersFetchSuccess, availableWorkOrdersFetchSuccess, waitingForReviewOrders } = workOrders;
   let { user } = auth;
   return {
     user, 
     activeOrders,
     availableOrders,
+    waitingForReviewOrders,
     activeWorkOrdersFetchSuccess,
     availableWorkOrdersFetchSuccess
   }

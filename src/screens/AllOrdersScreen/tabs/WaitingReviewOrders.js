@@ -6,13 +6,15 @@ import COLORS from '../../../common/colors';
 import styles from '../styles';
 import { TaskCard } from '../../../components';
 
-class AvailableOrders extends Component {
+class WaitingReviewOrders extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     let { waitingForReviewOrders } = this.props;
+    console.log('waitingForReviewOrders', waitingForReviewOrders)
+    console.log('this.props',this.props)
     return (
       <>
         <View style={styles.scrollView}>
@@ -46,4 +48,4 @@ class AvailableOrders extends Component {
   }
 }
 
-export default AvailableOrders;
+export default WaitingReviewOrders;
