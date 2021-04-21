@@ -4,6 +4,7 @@ const _initialState = {
   activeOrders: [],
   availableOrders: [],
   waitingForReviewOrders: [],
+  approvedWorkOrders: [],
   allSkills: [],
   fetchedSkillDetails: {}
 }
@@ -63,6 +64,25 @@ export default function reducer(state = _initialState, { payload, type }) {
       return {
         ...state,
         waitingForReviewOrdersSuccess: false
+      }
+
+    case actionTypes.FETCH_APPROVED_WORK_ORDERS_REQUEST:
+      return {
+        ...state,
+        approvedWorkOrdersSuccess: false,
+      }
+
+    case actionTypes.FETCH_APPROVED_WORK_ORDERS_SUCCESS:
+      return {
+        ...state,
+        approvedWorkOrdersSuccess: true,
+        approvedWorkOrders: payload
+      }
+
+    case actionTypes.FETCH_APPROVED_WORK_ORDERS_ERROR:
+      return {
+        ...state,
+        approvedWorkOrdersSuccess: false
       }
     
     case actionTypes.FETCH_ALL_SKILLS_SUCCESS:

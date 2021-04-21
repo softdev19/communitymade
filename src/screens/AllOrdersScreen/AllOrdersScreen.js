@@ -17,7 +17,8 @@ import {
     getAvailableWorkOrders, 
     getAllSkills, 
     getSkillsById,
-    getWaitingReviewWorkOrders
+    getWaitingReviewWorkOrders,
+    getApprovedWorkOrders
    } from '../../thunk';
 import { setUiBlock } from '../../actions';
 
@@ -92,6 +93,10 @@ class AllOrdersScreen extends React.Component {
       });
 
       this.props.getWaitingReviewWorkOrders({
+        userId: user?.user?.id
+      });
+
+      this.props.getApprovedWorkOrders({
         userId: user?.user?.id
       });
     });
@@ -192,6 +197,7 @@ const mapDispatchToProps = (dispatch) => {
     getActiveWorkOrders: (data) => dispatch(getActiveWorkOrders(data)),
     getAvailableWorkOrders: (data) => dispatch(getAvailableWorkOrders(data)),
     getWaitingReviewWorkOrders: (data) => dispatch(getWaitingReviewWorkOrders(data)),
+    getApprovedWorkOrders: (data) => dispatch(getApprovedWorkOrders(data)),
    }
 }
 

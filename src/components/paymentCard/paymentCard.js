@@ -42,14 +42,14 @@ class PaymentCard extends Component {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Total:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>$ {data?.completedQuantity * data?.paymentTerms || '0'}</Text>
           </View>
         </View>
 
         <View style={[styles.bottomContainer, { borderTopWidth: 0 }]}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Qty Completed:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.maxTaskQuantity || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
           </View>
         </View>
       </View>

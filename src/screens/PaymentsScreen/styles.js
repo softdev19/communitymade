@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import { commonStyle as cs, fullWidth, GetOptimalWidth,scaledFontSize, GetOptimalHieght } from '../../common/styles';
 import COLORS from '../../common/colors';
+import platform from '../../helpers/platform'
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     color: COLORS.PRIMARY_BLUE,
 //     fontFamily: 'Poppins',
     fontWeight: '600',
-    fontSize: scaledFontSize(9),
+    fontSize: scaledFontSize(16),
   },
   tab: {
     width: fullWidth / 2,
@@ -75,11 +76,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: GetOptimalWidth(16),
   },
-  text: {
-    fontSize: scaledFontSize(12),
-    color: COLORS.PRIMARY_BLUE,
-    fontWeight: '600',
+  header: {
+    height: platform.topSpace + 20
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  title: {
+    color: platform.brandBlack,
+    fontSize: 13,
+    fontFamily: platform.fontBold,
+  },
+  subtitle: {
+    color: platform.brandBlack,
+    fontSize: 13,
+    fontFamily: platform.fontRegular,
+    paddingLeft: 5
+  },
+  btn: {
+    marginHorizontal: 32,
+    marginBottom: 10
+  },
+  inputContainer: {
+    alignSelf: 'center'
+  },
+  input: {
+    width: platform.deviceWidth - 32 - 32,
+    height: null,
+    minHeight: 36
+  },
+  footer: {
+    height: 100
+  },
+  smallBtn: {
+    width: 160,
+    alignSelf: 'flex-end',
+    marginRight: 32
+  }
 });
 
 export default styles;

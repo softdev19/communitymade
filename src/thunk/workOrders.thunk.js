@@ -11,6 +11,10 @@ import {
   fetchWaitingReviewWorkOrdersSuccess,
   fetchWaitingReviewWorkOrdersError,
 
+  fetchApprovedWorkOrdersRequest,
+  fetchApprovedWorkOrdersSuccess,
+  fetchApprovedWorkOrdersError,
+
   fetchAllSkillsRequest,
   fetchAllSkillsSuccess,
   fetchAllSkillsError,
@@ -87,6 +91,27 @@ export function getWaitingReviewWorkOrders(data) {
       .catch((error) => {
          __DEV__ && console.log(error);
         dispatch(fetchWaitingReviewWorkOrdersError());
+        ShowError(error);
+        throw error;
+      })
+  }
+}
+
+export function getApprovedWorkOrders(data) {
+  return function(dispatch) {
+    dispatch(fetchApprovedWorkOrdersRequest());
+    return API.fetch({
+      method: 'get',
+      url: `${SERVER_URL}${END_POINTS.WORK_ORDERS}?userId=${data?.userId}&status=approved`
+    })
+      .then((response) => {
+        __DEV__ && console.log(response);
+        dispatch(fetchApprovedWorkOrdersSuccess(response?.data));
+        return response;
+      })
+      .catch((error) => {
+         __DEV__ && console.log(error);
+        dispatch(fetchApprovedWorkOrdersError());
         ShowError(error);
         throw error;
       })

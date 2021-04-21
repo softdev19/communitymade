@@ -57,6 +57,25 @@ export function fetchWaitingReviewWorkOrdersError() {
   }
 }
 
+export function fetchApprovedWorkOrdersRequest() {
+  return {
+    type: actionTypes.FETCH_APPROVED_WORK_ORDERS_REQUEST,
+  }
+}
+
+export function fetchApprovedWorkOrdersSuccess(data) {
+  return {
+    type: actionTypes.FETCH_APPROVED_WORK_ORDERS_SUCCESS,
+    payload: data
+  }
+}
+
+export function fetchApprovedWorkOrdersError() {
+  return {
+    type: actionTypes.FETCH_APPROVED_WORK_ORDERS_ERROR,
+  }
+}
+
 export function fetchAllSkillsRequest() {
   return {
     type: actionTypes.FETCH_ALL_SKILLS_REQUEST,
