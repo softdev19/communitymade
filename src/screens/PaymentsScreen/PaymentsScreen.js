@@ -21,7 +21,7 @@ class PaymentsScreen extends React.Component {
   }
 
   render() {
-    let { approvedWorkOrders } = this.props;
+    let { approvedWorkOrders, lifetimeEarnings } = this.props;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
@@ -31,7 +31,7 @@ class PaymentsScreen extends React.Component {
           />
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', marginTop: GetOptimalHieght(20), marginBottom: GetOptimalHieght(20) }}>
           <Text style={styles.text}>{'Lifetime Earnings:  '}</Text>
-          <Text style={styles.text}>{'$ 209'}</Text>
+          <Text style={styles.text}>{`$ ${lifetimeEarnings}`}</Text>
         </View>
         
         <ScrollView style={{ }}>
@@ -66,11 +66,12 @@ class PaymentsScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth, workOrders }) => {
-  let { approvedWorkOrders } = workOrders;
+  let { approvedWorkOrders, lifetimeEarnings } = workOrders;
   let { user } = auth;
   return {
     user, 
-    approvedWorkOrders
+    approvedWorkOrders,
+    lifetimeEarnings
   }
 }
 

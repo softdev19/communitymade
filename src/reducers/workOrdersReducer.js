@@ -5,6 +5,7 @@ const _initialState = {
   availableOrders: [],
   waitingForReviewOrders: [],
   approvedWorkOrders: [],
+  lifetimeEarnings: null,
   allSkills: [],
   fetchedSkillDetails: {}
 }
@@ -73,10 +74,15 @@ export default function reducer(state = _initialState, { payload, type }) {
       }
 
     case actionTypes.FETCH_APPROVED_WORK_ORDERS_SUCCESS:
+      let lifetimeEarnings = 0;
+      payload?.map((item) => {
+        lifetimeEarnings+= item?.paymentTerms * item?.completedQuantity
+      })
       return {
         ...state,
         approvedWorkOrdersSuccess: true,
-        approvedWorkOrders: payload
+        approvedWorkOrders: payload,
+        lifetimeEarnings
       }
 
     case actionTypes.FETCH_APPROVED_WORK_ORDERS_ERROR:
