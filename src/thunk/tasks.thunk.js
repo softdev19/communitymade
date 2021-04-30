@@ -8,7 +8,7 @@ import {
   setUiBlock
 } from '../actions';
 
-import { navigate, replace } from '../navigation/NavigationService';
+import { navigate, resetNavigation } from '../navigation/NavigationService';
 import { API, SERVER_URL, END_POINTS } from '../services';
 import ShowError from '../helpers/ShowError';
 import ShowSuccess from '../helpers/ShowSuccess';
@@ -42,7 +42,7 @@ export function createTask(data, taskDetails, navigation) {
   }
 }
 
-export function updateTask(data) {
+export function updateTask(data, showCompletedTaskMsg, navigation) {
   return function(dispatch) {
     dispatch(updateTaskRequest());
     
@@ -56,7 +56,14 @@ export function updateTask(data) {
         __DEV__ && console.log(response);
         dispatch(updateTaskSuccess(response?.data));
         dispatch(setUiBlock(false))
-        ShowSuccess('Task updated successfully !');
+        if(showCompletedTaskMsg)
+          alert('Your task is now In Review. Once it is approved you will receive immediate payment. Feel free to start on another task while you wait.');
+        else ShowSuccess('Task updated successfully !');
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home', params: {showCompletedTaskMsg} }]
+        });
         return response;
       })
       .catch((error) => {

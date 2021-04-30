@@ -41,18 +41,20 @@ class ActiveOrderDetailsScreen extends React.Component {
   onPressVideo = item => {
    this.props.navigation.navigate('WebViewScreen', {url: item?.instructionsVideoLink, title: item?.name })
   }
-  
-  onPressCompleted = () => {
-
-  }
 
   onPressUpdateCompletedQty = () => {
     let { order } = this.props.route.params;
+    let { activeOrders, navigation } = this.props;
+    let { taskCount } = this.state;
+    let showCompletedTaskMsg = false;
+    let completedQuantity = parseInt(taskCount) + parseInt(order?.userTaskDetails?.completedQuantity);
+    showCompletedTaskMsg = activeOrders?.length == 1 && (order?.userTaskDetails?.claimedQuantity == completedQuantity);
+    
     this.props.updateTask({
       taskId: order?.userTaskDetails?.taskId,
       userId: this.props.user?.id,
-      completedQuantity: this.state?.taskCount,
-    })
+      completedQuantity,
+    }, showCompletedTaskMsg, navigation)
   }
   
   onPressMessage = () => {
@@ -106,13 +108,6 @@ class ActiveOrderDetailsScreen extends React.Component {
           upperCase={false}
           onPress={() => this.onPressVideo(order)}
         />
-        <Button
-          raised
-          style={{ container: styles.btn }}
-          text={'Mark Task Completed'}
-          upperCase={false}
-          onPress={this.onPressCompleted}
-        />
         <Spacer size="XS" />
         {/* <ScreenTitle title={'Questions ?  Problems ?'} />
         <Spacer size="S" /> */}
@@ -141,7 +136,7 @@ class ActiveOrderDetailsScreen extends React.Component {
           <Slider
             value={taskCount}
             minimumValue={0}
-            maximumValue={order?.userTaskDetails?.claimedQuantity} // issue when you instantly navigate here after activating task, it does not contain userTaskDetails
+            maximumValue={order?.userTaskDetails?.claimedQuantity - order?.userTaskDetails?.completedQuantity}
             step={1}
             thumbTintColor={'#343434'}
             maximumTrackTintColor={'#b3b3b3'}
@@ -149,7 +144,7 @@ class ActiveOrderDetailsScreen extends React.Component {
             onValueChange={value => this.setState({ taskCount: value })}
           />
           <Text>
-            Items: {taskCount}
+            Remaining Items: {taskCount}
           </Text>
         </View>
         <View style={{ marginTop: 20 }}>
@@ -169,16 +164,18 @@ class ActiveOrderDetailsScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, workOrders }) => {
   let { user } = auth?.user;
+  let { activeOrders } = workOrders;
   return {
-    user
+    user,
+    activeOrders
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTask: (data) => dispatch(updateTask(data)),
+    updateTask: (data, showCompletedTaskMsg, navigation) => dispatch(updateTask(data, showCompletedTaskMsg, navigation)),
    }
 }
 
