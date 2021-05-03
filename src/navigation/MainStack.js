@@ -1,20 +1,21 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from '../screens/LoginScreen'
-import RegisterScreen from '../screens/RegisterScreen'
-import OnBoardingScreen from '../screens/OnBoardingScreen';
-import ResetPasswordScreen from '../screens/ResetPasswordScreen';
-import SetPasswordScreen from '../screens/SetPasswordScreen';
-import OnboardingAddressScreen from '../screens/OnboardingAddressScreen'
-import SignupScreen from '../screens/SignupScreen'
-import SigninScreen from '../screens/SigninScreen'
-import OnboardingSkillsScreen from '../screens/OnboardingSkillsScreen'
-import WebViewScreen from '../screens/WebViewScreen'
-import PDFViewScreen from '../screens/PDFViewScreen';
-
-import { StackStyle } from './themes'
-import TabsStack from './TabsStack'
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+import OnBoardingScreen from "../screens/OnBoardingScreen";
+import ResetPasswordScreen from "../screens/ResetPasswordScreen";
+import SetPasswordScreen from "../screens/SetPasswordScreen";
+import OnboardingAddressScreen from "../screens/OnboardingAddressScreen";
+import SignupScreen from "../screens/SignupScreen";
+import SigninScreen from "../screens/SigninScreen";
+import OnboardingSkillsScreen from "../screens/OnboardingSkillsScreen";
+import WebViewScreen from "../screens/WebViewScreen";
+import PDFViewScreen from "../screens/PDFViewScreen";
+import AccountConnectScreen from "../screens/ConnectMyAccount/connectAccount";
+import ConfirmAccountScreen from "../screens/ConnectMyAccount/confirmAccount";
+import { StackStyle } from "./themes";
+import TabsStack from "./TabsStack";
 
 const Stack = createStackNavigator();
 
@@ -67,6 +68,17 @@ function MainStack({ initialRouteName }) {
       <Stack.Screen
         name="PDFViewScreen"
         component={PDFViewScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="AccountConnectScreen"
+        component={AccountConnectScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ConfirmAccountScreen"
+        component={ConfirmAccountScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

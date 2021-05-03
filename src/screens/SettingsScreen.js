@@ -80,6 +80,7 @@ function SettingsScreen({ navigation, getAllSkills, updateProfile, setUiBlock, u
   }
 
   const onPressSubmitBankDetails = () => {
+    navigation.navigate("AccountConnectScreen");
     // updateProfile({
     //   userId: user?.user?.id,
     //   data: {
