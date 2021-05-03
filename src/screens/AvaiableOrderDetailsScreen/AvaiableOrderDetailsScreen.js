@@ -70,6 +70,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
   render() {
     let { order } = this.props.route.params;
     let { quantity } = this.state;
+    let { activeOrders } = this.props;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
         <View style={[{ flexDirection: 'column' }, cs.elevatedShadow]}>
@@ -89,7 +90,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
           payment={order.paymentTerms}
           totalQty={order.totalQuantity}
           est_time={order.timeEstimateMin}
-          unclaimedQty={order.unclaimedQty} // need to link
+          unclaimedQty={order.availableQuantity}
           minQty={order.minTaskQuantity}
           maxQty={order.maxTaskQuantity}
         />
@@ -112,13 +113,15 @@ class AvaiableOrderDetailsScreen extends React.Component {
           onPress={() => this.onPressVideo(order)}
         />
         <Spacer />
-        <ClaimQuantity
-          minQty={order.minTaskQuantity}
-          maxQty={order.maxTaskQuantity}
-          quantity={quantity}
-          setQuantity={this.setQuantity}
-          onPressClaim={() => this.onPressClaim(order, quantity)}
+        {
+          activeOrders?.length == 0 && <ClaimQuantity
+            minQty={order.minTaskQuantity}
+            maxQty={order.maxTaskQuantity}
+            quantity={quantity}
+            setQuantity={this.setQuantity}
+            onPressClaim={() => this.onPressClaim(order, quantity)}
         />
+        }
         <View style={styles.footer} />
         </InputScrollView>
         </View>
@@ -127,10 +130,12 @@ class AvaiableOrderDetailsScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  const { user } = auth?.user;
+const mapStateToProps = ({ auth, workOrders }) => {
+  let { user } = auth?.user;
+  let { activeOrders } = workOrders;
   return {
-    user
+    user,
+    activeOrders
   }
 }
 
