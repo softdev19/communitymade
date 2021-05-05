@@ -20,7 +20,7 @@ import Spacer from '../../components/atoms/Spacer'
 import CustomInput from '../../components/organisms/CustomInput'
 import ClaimQuantity from '../../components/organisms/ClaimQuantity'
 import OrderNewDetailsItem from '../../components/organisms/OrderNewDetailsItem'
-import { createTask } from '../../thunk';
+import { createTask, userSilentLogin } from '../../thunk';
 import { setUiBlock } from '../../actions';
 
 let item = { name: "Serene Black Women's Pant", end_date: "04-01-2021", claimed: "10", completed: "2", payment: "15" };
@@ -53,14 +53,29 @@ class AvaiableOrderDetailsScreen extends React.Component {
     this.setState({ message })
   }
 
-  onPressClaim = (order, quantity ) => {
-   // this.props.navigation.navigate('OrderSuccess', { order, quantity })
+  componentDidMount(){
+    this.props.setUiBlock(true);
+    let { userLoginInfo } = this.props;
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.dispatchUserSilentLogin({ email: userLoginInfo?.email, password: userLoginInfo?.password })
+    });
+  }
 
-   this.props.createTask({
-    userId: this.props?.user?.id,
-    workOrderId: order?.id,
-    claimedQuantity: parseInt(quantity)
-   }, order, this.props.navigation)
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  onPressClaim = (order, quantity ) => {
+    let { stripePayoutsEnabled } = this.props?.user;
+    if(stripePayoutsEnabled){
+      this.props.createTask({
+        userId: this.props?.user?.id,
+        workOrderId: order?.id,
+        claimedQuantity: parseInt(quantity)
+       }, order, this.props.navigation)
+    } else {
+      this.props.navigation.navigate('AccountConnectScreen');
+    }
   }
 
   setQuantity = quantity => {
@@ -131,11 +146,12 @@ class AvaiableOrderDetailsScreen extends React.Component {
 }
 
 const mapStateToProps = ({ auth, workOrders }) => {
-  let { user } = auth?.user;
+  let { user, userLoginInfo } = auth?.user;
   let { activeOrders } = workOrders;
   return {
     user,
-    activeOrders
+    activeOrders,
+    userLoginInfo
   }
 }
 
@@ -143,6 +159,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUiBlock: (value) => dispatch(setUiBlock(value)),
     createTask: (data, taskDetails, navigation) => dispatch(createTask(data, taskDetails, navigation)),
+    dispatchUserSilentLogin: (data) => dispatch(userSilentLogin(data)),
    }
 }
 

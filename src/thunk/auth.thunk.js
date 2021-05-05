@@ -27,7 +27,7 @@ export function userLogin(data) {
     })
       .then((response) => {
         let token = response?.data?.token;
-        dispatch(updateUserInfo({...response?.data?.user, token}));
+        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
         dispatch(setUiBlock(false));
         ShowSuccess('User logged in successfully');
         console.log('user', response)
@@ -39,6 +39,34 @@ export function userLogin(data) {
         dispatch(userLoginFailure(error));
         dispatch(setUiBlock(false));
         ShowError(error);
+        throw error;
+      })
+  }
+}
+
+export function userSilentLogin(data) {
+  return function(dispatch) {
+    dispatch(userLoginRequest());
+    dispatch(setUiBlock(true));
+    console.log(data)
+    return API.fetch({
+      method: 'post',
+      url: `${SERVER_URL}${END_POINTS.LOGIN}`,
+      data: data
+    })
+      .then((response) => {
+        let token = response?.data?.token;
+        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
+        dispatch(setUiBlock(false));
+        console.log('user', response)
+        AsyncStorage.setItem('token', `${'Bearer ' + token}`);
+        return response;
+      })
+      .catch((error) => {
+         __DEV__ && console.log('userLogin',error);
+        dispatch(userLoginFailure(error));
+        dispatch(setUiBlock(false));
+        console.log('ERROR ==> ',error)
         throw error;
       })
   }
@@ -56,7 +84,8 @@ export function userSignup(data, navigation) {
     })
       .then((response) => {
         __DEV__ && console.log(response);
-        dispatch(updateUserInfo(response?.data));
+        // dispatch(updateUserInfo(response?.data));
+        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
         dispatch(setUiBlock(false));
         ShowSuccess('User created successfully');
         let token = response?.data?.token;
