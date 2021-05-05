@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { connect } from 'react-redux'
 import { Header } from "../../components";
 import { styles } from "./style";
 
-export default class AccountConnectScreen extends Component {
+class AccountConnectScreen extends Component {
   onPress = async () => {
     await this.props.navigation.replace("ConfirmAccountScreen");
     this.props.navigation.navigate("WebViewScreen", {
       url: "https://paskho-community-made-backend.herokuapp.com/stripe/connect",
       title: "Connect to Stripe",
+      authToken: this.props?.token
     });
   };
   goback = () => {
@@ -49,3 +51,15 @@ export default class AccountConnectScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => {
+  let { token } = auth?.user;
+  return {
+    token
+  }
+}
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountConnectScreen)
+

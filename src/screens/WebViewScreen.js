@@ -88,11 +88,10 @@ class WebViewScreen extends Component {
     }
 
     render() {
-
-        // put user token in below code, while I'll link it shortly.
-        let jsCode = "window.postMessage(document.cookie= 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMjE0MjE1fQ.wzy0_mXj50d9wSOjqiiHXafMN71D8gx3AaLrPcXcdDY')";  // if you need to write some cookies, not sure if it goes to shared cookies, most probably no :)
         const url = this.props.route?.params?.url;
         const title = this.props.route?.params?.title;
+        const token = this.props.route?.params?.authToken;
+        let jsCode = `window.postMessage(document.cookie= 'token=${token}')`;  // if you need to write some cookies, not sure if it goes to shared cookies, most probably no :)
         return (
           <View style={{ flex: 1, backgroundColor: '#F0F0F0' }}>
             <StatusBar
@@ -168,7 +167,7 @@ class WebViewScreen extends Component {
                 style={{ flex: 1 }}
                 source={{ uri: url,
                   headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMTY2NDAwfQ.sPr-PPNRPlW9itFxLTwcB59yyu-_mWk4C6Y5Ce1RAtI",
+                    Authorization: `Bearer ${token}`,
                   }}}
                 injectedJavaScript={jsCode}
                 onLoadStart={() => this.onLoadStart()}
@@ -181,7 +180,7 @@ class WebViewScreen extends Component {
                 onNavigationStateChange={navState => {
                     this.setState({ currentLoadedUrl: navState.url })
                 }}
-                token={'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMTY2NDAwfQ.sPr-PPNRPlW9itFxLTwcB59yyu-_mWk4C6Y5Ce1RAtI'}
+                token={token}
                 sharedCookiesEnabled
             />
 

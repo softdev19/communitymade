@@ -26,11 +26,11 @@ export function userLogin(data) {
       data: data
     })
       .then((response) => {
-        dispatch(updateUserInfo(response?.data?.user));
+        let token = response?.data?.token;
+        dispatch(updateUserInfo({...response?.data?.user, token}));
         dispatch(setUiBlock(false));
         ShowSuccess('User logged in successfully');
         console.log('user', response)
-        let token = response?.data?.token;
         AsyncStorage.setItem('token', `${'Bearer ' + token}`);
         return response;
       })
