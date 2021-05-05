@@ -31,6 +31,10 @@ class TaskCard extends Component {
               </View>
               }
             </View>
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                <Text style={styles.bottomText}>{'Unclaimed Qty'}</Text>
+                <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.availableQuantity}</Text>
+              </View>
           </View>
           {
             showButton && <TouchableOpacity
@@ -90,12 +94,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: GetOptimalHieght(12),
     paddingHorizontal: GetOptimalWidth(24),
+    paddingTop: GetOptimalHieght(10),
     flex: 1,
   },
   bottomContainer: {
     paddingHorizontal: GetOptimalWidth(24),
     justifyContent: 'space-between',
-    height: GetOptimalHieght(42),
+    height: GetOptimalHieght(37),
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,

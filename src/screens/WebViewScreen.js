@@ -88,6 +88,9 @@ class WebViewScreen extends Component {
     }
 
     render() {
+
+        // put user token in below code, while I'll link it shortly.
+        let jsCode = "window.postMessage(document.cookie= 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMjE0MjE1fQ.wzy0_mXj50d9wSOjqiiHXafMN71D8gx3AaLrPcXcdDY')";  // if you need to write some cookies, not sure if it goes to shared cookies, most probably no :)
         const url = this.props.route?.params?.url;
         const title = this.props.route?.params?.title;
         return (
@@ -159,10 +162,15 @@ class WebViewScreen extends Component {
             }
             </View>
 
+            {/* Tried multiple ways to send token, but still no luck */}
             <WebView
                 ref={WEBVIEW_REF}
                 style={{ flex: 1 }}
-                source={{ uri: url }}
+                source={{ uri: url,
+                  headers: {
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMTY2NDAwfQ.sPr-PPNRPlW9itFxLTwcB59yyu-_mWk4C6Y5Ce1RAtI",
+                  }}}
+                injectedJavaScript={jsCode}
                 onLoadStart={() => this.onLoadStart()}
                 onLoadEnd={() => this.onLoadEnd()}
                 javaScriptEnabled={true}
@@ -173,9 +181,9 @@ class WebViewScreen extends Component {
                 onNavigationStateChange={navState => {
                     this.setState({ currentLoadedUrl: navState.url })
                 }}
-
+                token={'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjQsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNjIwMTY2NDAwfQ.sPr-PPNRPlW9itFxLTwcB59yyu-_mWk4C6Y5Ce1RAtI'}
+                sharedCookiesEnabled
             />
-            {/* {this.state.isLoading && <Spinner fullScreen style={{ position: 'absolute', alignSelf: 'center', top: height * 0.4 }} />} */}
 
             {
                 Platform.OS === 'ios' &&

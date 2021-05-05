@@ -35,7 +35,7 @@ export default class AccountConnectScreen extends Component {
           </Text>
           <Text style={styles.text}>
             {
-              "Once you securely connect your bank account via Stripe, you will recieve direct deposite payments immediately upon tasks completion and approval."
+              "Once you securely connect your bank account via Stripe, you will recieve direct deposite payments immediately upon task completion and approval."
             }
           </Text>
           <TouchableOpacity
