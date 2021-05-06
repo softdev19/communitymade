@@ -1,32 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import platform from '../helpers/platform'
-import { CommonActions } from '@react-navigation/native';
 import { Header } from '../components';
 import _ from 'lodash'
 import moment from 'moment'
 import { Button } from 'react-native-material-ui'
 import InputScrollView from 'react-native-input-scroll-view'
 
-import CompanyTitle from '../components/molecules/CompanyTitle'
+import { getActiveWorkOrders } from '../thunk';
+import { setUiBlock } from '../actions';
 import ScreenTitle from '../components/molecules/ScreenTitle'
 import Spacer from '../components/atoms/Spacer'
 import OrderSuccessItem from '../components/organisms/OrderSuccessItem'
 
-function OrderSuccessScreen({ navigation, route }) {
+function OrderSuccessScreen({ navigation, route, getActiveWorkOrders, setUiBlock, activeOrders, activeWorkOrdersFetchSuccess, user }) {
   const { order, quantity } = route.params
   const { t } = useTranslation(['order-success', 'common'])
+
+    useEffect(() => {
+      setUiBlock(true),
+      getActiveWorkOrders({
+        podId: user?.user?.podId,
+        userId: user?.user?.id
+      });
+    }, [])
+    
   const onPressStart = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [
-          { name: 'Home' }
-        ],
-      })
-    );
+    if(activeOrders?.length > 0){
+      let item = activeOrders[0]; // fetching active task
+      navigation.replace('OrderDetails', { order: item })
+    } else {
+      alert('Some error occured !')
+    }
   }
   const onPressCancel = () => {
     navigation.goBack()
@@ -57,10 +64,10 @@ function OrderSuccessScreen({ navigation, route }) {
         <Spacer />
         <OrderSuccessItem
           task_name={order.name}
-          end_date={moment(order.end_date).format('MM/DD/YY')}
-          payment={order.payment}
+          end_date={moment(order.endDate).format('MM/DD/YY')}
+          payment={order.paymentTerms}
           claimedQty={quantity}
-          est_time={order.est_time}
+          est_time={order.timeEstimateMax}
         />
         <Spacer size="S" />
         <Button
@@ -112,10 +119,21 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth, workOrders }) => {
+  let { activeOrders, activeWorkOrdersFetchSuccess } = workOrders;
+  let { user } = auth;
+  return {
+    user, 
+    activeOrders,
+    activeWorkOrdersFetchSuccess,
+  }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUiBlock: (value) => dispatch(setUiBlock(value)),
+    getActiveWorkOrders: (data) => dispatch(getActiveWorkOrders(data)),
+   }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderSuccessScreen)
