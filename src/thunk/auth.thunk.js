@@ -84,11 +84,11 @@ export function userSignup(data, navigation) {
     })
       .then((response) => {
         __DEV__ && console.log(response);
-        // dispatch(updateUserInfo(response?.data));
-        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
+        let token = response?.data?.token;
+        dispatch(updateUserInfo({...response?.data, token, userLoginInfo: data}));
         dispatch(setUiBlock(false));
         ShowSuccess('User created successfully');
-        let token = response?.data?.token;
+        console.log('user', response)
         AsyncStorage.setItem('token', `${'Bearer ' + token}`);
         navigation.reset({
           index: 0,

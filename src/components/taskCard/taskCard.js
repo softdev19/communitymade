@@ -9,7 +9,8 @@ class TaskCard extends Component {
   }
 
   render() {
-    const { data, onPress, showButton, showClaimedQuantity = false } = this.props;
+    const { data, onPress, showButton, showClaimedQuantity, showUserSpecificContent } = this.props;
+    let completedQuantity = showUserSpecificContent ? data?.userTaskDetails?.completedQuantity : data?.completedQuantity;
     return (
       <View style={[styles.authBox, cs.elevatedShadow]}>
         <View style={styles.topContainer}>
@@ -52,7 +53,7 @@ class TaskCard extends Component {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Qty Completed:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{completedQuantity || '0'}</Text>
           </View>
         </View>
 
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   authBox: {
     backgroundColor: COLORS.WHITE,
     marginVertical: GetOptimalHieght(10),
-    paddingTop: GetOptimalHieght(16),
+    paddingTop: GetOptimalHieght(5),
     borderRadius: GetOptimalHieght(16),
     marginHorizontal: GetOptimalWidth(16),
     height: GetOptimalHieght(180),
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     paddingHorizontal: GetOptimalWidth(24),
     justifyContent: 'space-between',
-    height: GetOptimalHieght(37),
+    height: GetOptimalHieght(32),
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,

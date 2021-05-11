@@ -6,7 +6,7 @@ import { styles } from "./style";
 
 class AccountConnectScreen extends Component {
   onPress = async () => {
-    await this.props.navigation.replace("ConfirmAccountScreen");
+    await this.props.navigation.replace("ConfirmAccountScreen", {...this.props.route?.params});
     this.props.navigation.navigate("WebViewScreen", {
       url: "https://paskho-community-made-backend.herokuapp.com/stripe/connect",
       title: "Connect to Stripe",
@@ -27,7 +27,7 @@ class AccountConnectScreen extends Component {
           </Text>
           <Text style={styles.text}>
             {
-              "Paskho Community Made uses Stripe Connect to facilitate ACH payments directly to your bank account."
+              "Paskho Community Made uses Stripe Connect to facilitate ACH payments directly to your bank account or debit card."
             }
           </Text>
           <Text style={styles.text}>
@@ -37,7 +37,7 @@ class AccountConnectScreen extends Component {
           </Text>
           <Text style={styles.text}>
             {
-              "Once you securely connect your bank account via Stripe, you will recieve direct deposite payments immediately upon task completion and approval."
+              "Once you securely connect your bank account via Stripe, you will receive direct deposit payments immediately upon task completion and approval."
             }
           </Text>
           <TouchableOpacity

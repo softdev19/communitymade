@@ -288,8 +288,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ auth, workOrders }) => {
   let { activeOrders, availableOrders, activeWorkOrdersFetchSuccess, availableWorkOrdersFetchSuccess, allSkills } = workOrders;
   let { user } = auth;
-  let { skills } = user?.user;
-  let userSkills = skills;
+  let skills = user?.user?.skills;
+  let userSkills = skills || [];
   return {
     user,
     activeOrders,

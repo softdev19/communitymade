@@ -35,8 +35,8 @@
     "choose skills": "Choose Skills"
   },
   "orders": {
-    "your active orders": "Your Active Work Orders",
-    "available orders": "Available Work Orders",
+    "your active orders": "Your Active Tasks",
+    "available orders": "Available Tasks",
     "task name": "Task Name:",
     "end date": "End Date:",
     "claimed": "Qty Claimed:",
@@ -52,7 +52,7 @@
     "quantity claimed": "Qty Claimed:"
   },
   "order-details": {
-    "active work": "Active Work Order Details",
+    "active work": "Active Tasks Details",
     "amount earned": "Amount Earned:",
     "view pdf": "View Instructions PDF",
     "view video": "View Instructions Video",
@@ -61,10 +61,10 @@
     "message paskho": "Message Paskho"
   },
   "order-new-details": {
-    "work order details": "Work Order Details",
+    "Tasks details": "Tasks Details",
     "view pdf": "View Instructions PDF",
     "view video": "View Instructions Video",
-    "claim text": "*Please only claim a task quantity you can comfortable complete before the project end date. Failure to complete your tasks on time may impact the Work Orders available to you in the future.",
+    "claim text": "*Please only claim a task quantity you can comfortable complete before the project end date. Failure to complete your tasks on time may impact the Tasks available to you in the future.",
     "claim task quantity": "Claim Task Quantity"
   },
   "order-success": {
@@ -85,7 +85,7 @@
     "bank info": "Bank Info"
   },
   "tabs": {
-    "orders": "Work Orders",
+    "orders": "Tasks",
     "payments": "Payments",
     "settings": "Settings"
   },

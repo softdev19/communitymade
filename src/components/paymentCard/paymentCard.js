@@ -9,7 +9,7 @@ class PaymentCard extends Component {
   }
 
   render() {
-    const { data, onPress, showButton} = this.props;
+    const { data } = this.props;
     return (
       <View style={[styles.authBox, cs.elevatedShadow]}>
         <View style={styles.topContainer}>
@@ -20,36 +20,25 @@ class PaymentCard extends Component {
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, width: '92%' }}>
             <Text style={styles.durationText}> {'Completed:'} {moment(data?.endDate).format('MM-DD-YY') || '0'} </Text>
-              <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                <Text style={styles.bottomText}>Payment:</Text>
-                <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{`$${data?.paymentTerms} / per` || '0'}</Text>
-              </View>
             </View>
           </View>
-          {/* {
-            showButton && <TouchableOpacity
-              onPress={onPress}
-              style={[styles.button, styles.blueButton, { flexDirection: 'row' }]}>
-              <Text style={styles.editText}>{'Details'}</Text>
-            </TouchableOpacity>
-          } */}
         </View>
 
         <View style={styles.bottomContainer}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.bottomText}>Qty Assigned:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.totalQuantity || '1'}</Text>
+          <Text style={styles.bottomText}>Payment:</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{`$${data?.paymentTerms} / per` || '0'}</Text>
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Total:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>$ {data?.completedQuantity * data?.paymentTerms || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>$ {data?.userTaskDetails?.completedQuantity * data?.paymentTerms || '0'}</Text>
           </View>
         </View>
 
         <View style={[styles.bottomContainer, { borderTopWidth: 0 }]}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.bottomText}>Qty Completed:</Text>
-            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.completedQuantity || '0'}</Text>
+            <Text style={[styles.bottomText, { fontWeight: '500', color: '#F46270' }]}>{data?.userTaskDetails?.completedQuantity || '0'}</Text>
           </View>
         </View>
       </View>

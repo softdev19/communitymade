@@ -7,6 +7,7 @@ import AvaiableOrderDetailsScreen from '../screens/AvaiableOrderDetailsScreen';
 import OrderNewDetailsScreen from '../screens/OrderNewDetailsScreen'
 import AllOrdersScreen from '../screens/AllOrdersScreen'
 import OrderSuccessScreen from '../screens/OrderSuccessScreen'
+import ReviewTaskDetailsScreen from '../screens/ReviewTaskDetailsScreen';
 import { StackStyle } from './themes'
 
 const Stack = createStackNavigator();
@@ -27,6 +28,11 @@ function OrdersStack() {
       <Stack.Screen
         name="AvaiableOrderDetailsScreen"
         component={AvaiableOrderDetailsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ReviewTaskDetailsScreen"
+        component={ReviewTaskDetailsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

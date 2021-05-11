@@ -28,11 +28,12 @@ class WaitingReviewOrders extends Component {
                   data={item}
                   onPress={() =>
                   this.props.navigation.navigate(
-                     'AvaiableOrderDetailsScreen',
+                     'ReviewTaskDetailsScreen',
                     { order: item }
                     )
                   }
                   showButton
+                  showUserSpecificContent={true}
                 />
                 )
               }}

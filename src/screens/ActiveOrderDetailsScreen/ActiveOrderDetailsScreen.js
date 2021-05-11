@@ -26,7 +26,7 @@ class ActiveOrderDetailsScreen extends React.Component {
     super(props);
     this.state={
       message: '',
-      taskCount:1,
+      taskCount: this.props.route?.params?.order?.userTaskDetails?.completedQuantity
     }
   }
 
@@ -47,7 +47,7 @@ class ActiveOrderDetailsScreen extends React.Component {
     let { activeOrders, navigation } = this.props;
     let { taskCount } = this.state;
     let showCompletedTaskMsg = false;
-    let completedQuantity = parseInt(taskCount) + parseInt(order?.userTaskDetails?.completedQuantity);
+    let completedQuantity = parseInt(taskCount) // + parseInt(order?.userTaskDetails?.completedQuantity);
     showCompletedTaskMsg = activeOrders?.length == 1 && (order?.userTaskDetails?.claimedQuantity == completedQuantity);
     
     this.props.updateTask({
@@ -67,7 +67,7 @@ class ActiveOrderDetailsScreen extends React.Component {
 
   render() {
     let { order } = this.props.route.params;
-    console.log('active work order', order);
+    console.log('active Tasks', order);
     let { message, taskCount } = this.state;
     return (
       <ImageBackground source={images.appBackground} style={styles.container}>
@@ -134,17 +134,17 @@ class ActiveOrderDetailsScreen extends React.Component {
             justifyContent: "center"
           }}>
           <Slider
-            value={taskCount}
+            value={order?.userTaskDetails?.completedQuantity}
             minimumValue={0}
-            maximumValue={order?.userTaskDetails?.claimedQuantity - order?.userTaskDetails?.completedQuantity}
+            maximumValue={order?.userTaskDetails?.claimedQuantity}
             step={1}
             thumbTintColor={'#343434'}
             maximumTrackTintColor={'#b3b3b3'}
             thumbTouchSize={{width: 40, height: 40}}
             onValueChange={value => this.setState({ taskCount: value })}
           />
-          <Text>
-            Remaining Items: {taskCount}
+          <Text style={{ marginTop: 10 }}>
+            Completed Qty: {taskCount}
           </Text>
         </View>
         <View style={{ marginTop: 20 }}>

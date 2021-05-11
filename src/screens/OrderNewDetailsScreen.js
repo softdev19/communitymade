@@ -36,7 +36,7 @@ function OrderNewDetailsScreen({ navigation, route }) {
         keyboardShouldPersistTaps="always"
       >
         <Spacer />
-        <ScreenTitle title={t('work order details')} />
+        <ScreenTitle title={t('Tasks details')} />
         <Spacer />
         <OrderNewDetailsItem
           task_name={order.name}

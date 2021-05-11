@@ -67,14 +67,22 @@ class AvaiableOrderDetailsScreen extends React.Component {
 
   onPressClaim = (order, quantity ) => {
     let { stripePayoutsEnabled } = this.props?.user;
+    let userId = this.props?.user?.id;
+    let workOrderId = order?.id;
+    let claimedQuantity = parseInt(quantity);
     if(stripePayoutsEnabled){
       this.props.createTask({
-        userId: this.props?.user?.id,
-        workOrderId: order?.id,
-        claimedQuantity: parseInt(quantity)
+        userId,
+        workOrderId,
+        claimedQuantity
        }, order, this.props.navigation)
     } else {
-      this.props.navigation.navigate('AccountConnectScreen');
+      this.props.navigation.navigate('AccountConnectScreen', {
+        userId,
+        workOrderId,
+        claimedQuantity,
+        order
+      });
     }
   }
 
@@ -97,7 +105,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
           keyboardOffset={platform.topSpace ? platform.topSpace + 20 : 40}
           keyboardShouldPersistTaps="always">
         <Spacer />
-        <ScreenTitle title={'Work Order Details'} />
+        <ScreenTitle title={'Tasks Details'} />
         <Spacer />
         <OrderNewDetailsItem
           task_name={order.name}
@@ -109,7 +117,7 @@ class AvaiableOrderDetailsScreen extends React.Component {
           minQty={order.minTaskQuantity}
           maxQty={order.maxTaskQuantity}
         />
-        <Text style={styles.text}>{'*Please only claim a task quantity you can comfortable complete before the project end date. Failure to complete your tasks on time may impact the Work Orders available to you in the future.'}</Text>
+        <Text style={styles.text}>{'*Please only claim a task quantity you can comfortable complete before the project end date. Failure to complete your tasks on time may impact the Tasks available to you in the future.'}</Text>
         <Spacer />
         <Button
           raised

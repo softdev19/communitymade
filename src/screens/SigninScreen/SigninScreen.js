@@ -54,7 +54,8 @@ class SigninScreen extends React.Component {
   }
 
   componentDidMount(){
-    this.props.dispatchUserLogin({ email: "example24@mail.com", password: "password" })
+    // test login on app start to speed up developement
+   // this.props.dispatchUserLogin({ email: "example24@mail.com", password: "password" })
   }
 
   async componentDidUpdate(prevProps, prevState){

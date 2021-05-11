@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { connect } from 'react-redux'
 import { GetOptimalHieght } from "../../common";
+import { createTask } from '../../thunk';
+import { setUiBlock } from '../../actions';
 import { styles } from "./style";
 
-export default class ConfirmAccountScreen extends Component {
+class ConfirmAccountScreen extends Component {
   onCancelPress = () => {
     this.props.navigation.goBack();
   };
   onConfirmPress = () => {
-    this.props.navigation.goBack();
+    let { userId, workOrderId, claimedQuantity, order } = this.props.route?.params;
+    console.log('ConfirmAccountScreen', this.props.route?.params)
+    this.props.setUiBlock(true);
+    this.props.createTask({
+      userId,
+      workOrderId,
+      claimedQuantity
+     }, order, this.props.navigation)
   };
   render() {
     return (
@@ -35,3 +45,16 @@ export default class ConfirmAccountScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUiBlock: (value) => dispatch(setUiBlock(value)),
+    createTask: (data, taskDetails, navigation) => dispatch(createTask(data, taskDetails, navigation)),
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmAccountScreen)
