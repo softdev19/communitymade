@@ -2,23 +2,42 @@ import React, { Component } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { connect } from 'react-redux'
 import { GetOptimalHieght } from "../../common";
-import { createTask } from '../../thunk';
+import { createTask, userSilentLogin } from '../../thunk';
 import { setUiBlock } from '../../actions';
 import { styles } from "./style";
 
 class ConfirmAccountScreen extends Component {
+  componentDidMount(){
+    this.props.setUiBlock(true);
+    let { userLoginInfo } = this.props;
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.props.dispatchUserSilentLogin({ email: userLoginInfo?.email, password: userLoginInfo?.password })
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
   onCancelPress = () => {
     this.props.navigation.goBack();
   };
   onConfirmPress = () => {
     let { userId, workOrderId, claimedQuantity, order } = this.props.route?.params;
-    console.log('ConfirmAccountScreen', this.props.route?.params)
-    this.props.setUiBlock(true);
-    this.props.createTask({
-      userId,
-      workOrderId,
-      claimedQuantity
-     }, order, this.props.navigation)
+    __DEV__ && console.log('ConfirmAccountScreen', this.props.route?.params)
+    let { stripePayoutsEnabled } = this.props?.user;
+    if(stripePayoutsEnabled){
+      this.props.setUiBlock(true);
+      this.props.createTask({
+        userId,
+        workOrderId,
+        claimedQuantity
+      }, order, this.props.navigation)
+    } else {
+      this.props.navigation.navigate("WebViewScreen", {
+        url: "https://paskho-community-made-backend.herokuapp.com/stripe/connect",
+        title: "Connect to Stripe",
+        authToken: this.props?.token
+      });
+    }
   };
   render() {
     return (
@@ -46,14 +65,20 @@ class ConfirmAccountScreen extends Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({ auth }) => {
+  let { user, userLoginInfo, token } = auth?.user;
+  return {
+    user,
+    token,
+    userLoginInfo
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setUiBlock: (value) => dispatch(setUiBlock(value)),
     createTask: (data, taskDetails, navigation) => dispatch(createTask(data, taskDetails, navigation)),
+    dispatchUserSilentLogin: (data) => dispatch(userSilentLogin(data)),
    }
 }
 
