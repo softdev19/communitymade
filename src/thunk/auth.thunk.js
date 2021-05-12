@@ -27,7 +27,7 @@ export function userLogin(data) {
     })
       .then((response) => {
         let token = response?.data?.token;
-        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
+        dispatch(updateUserInfo({...response?.data, token, userLoginInfo: data}));
         dispatch(setUiBlock(false));
         ShowSuccess('User logged in successfully');
         console.log('user', response)
@@ -56,7 +56,7 @@ export function userSilentLogin(data) {
     })
       .then((response) => {
         let token = response?.data?.token;
-        dispatch(updateUserInfo({...response?.data?.user, token, userLoginInfo: data}));
+        dispatch(updateUserInfo({...response?.data, token, userLoginInfo: data}));
         dispatch(setUiBlock(false));
         console.log('user', response)
         AsyncStorage.setItem('token', `${'Bearer ' + token}`);
