@@ -8,14 +8,15 @@ function OrderNewDetailsItem({
   end_date,
   payment,
   totalQty,
-  est_time,
+  minEstTime,
+  maxEstTime,
   unclaimedQty,
   minQty,
   maxQty
 }) {
   const { t } = useTranslation(['orders', 'common'])
   const _payment = `$${payment}/${t('common:per')}`
-  const _estTime = `${est_time} ${t('common:min')}`
+  const _estTime = `${minEstTime} - ${maxEstTime} ${t('common:min')}`
   return(
     <View style={styles.container}>
 

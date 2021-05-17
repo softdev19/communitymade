@@ -105,14 +105,15 @@ class AvaiableOrderDetailsScreen extends React.Component {
           keyboardOffset={platform.topSpace ? platform.topSpace + 20 : 40}
           keyboardShouldPersistTaps="always">
         <Spacer />
-        <ScreenTitle title={'Tasks Details'} />
+        {/* <ScreenTitle title={'Tasks Details'} /> */}
         <Spacer />
         <OrderNewDetailsItem
           task_name={order.name}
           end_date={moment(order.endDate).format('MM/DD/YY')}
           payment={order.paymentTerms}
           totalQty={order.totalQuantity}
-          est_time={order.timeEstimateMin}
+          minEstTime={order.timeEstimateMin}
+          maxEstTime={order.timeEstimateMax}
           unclaimedQty={order.availableQuantity}
           minQty={order.minTaskQuantity}
           maxQty={order.maxTaskQuantity}
