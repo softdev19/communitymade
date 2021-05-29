@@ -74,7 +74,9 @@ class AllOrdersScreen extends React.Component {
   selectTab = () => {
     let { activeOrders } = this.props;
     if(activeOrders?.length == 0){
-      this.setState({ index: 1 })
+      setTimeout(() => {
+        this.setState({ index: 1 })
+      }, 500);
     }
   }
 
