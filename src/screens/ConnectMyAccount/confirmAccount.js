@@ -33,7 +33,8 @@ class ConfirmAccountScreen extends Component {
       }, order, this.props.navigation)
     } else {
       this.props.navigation.navigate("WebViewScreen", {
-        url: "https://communitymade.paskho.com/stripe/connect",
+        // url: "https://communitymade.paskho.com/stripe/connect",
+        url: `https://communitymade.paskho.com/stripe/connect?token=${this.props.token}`,
         title: "Connect to Stripe",
         authToken: this.props?.token
       });

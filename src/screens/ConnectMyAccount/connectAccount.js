@@ -8,7 +8,8 @@ class AccountConnectScreen extends Component {
   onPress = async () => {
     await this.props.navigation.replace("ConfirmAccountScreen", {...this.props.route?.params});
     this.props.navigation.navigate("WebViewScreen", {
-      url: "https://communitymade.paskho.com/stripe/connect",
+      // url: "https://communitymade.paskho.com/stripe/connect",
+      url: `https://communitymade.paskho.com/stripe/connect?token=${this.props.token}`,
       title: "Connect to Stripe",
       authToken: this.props?.token
     });
